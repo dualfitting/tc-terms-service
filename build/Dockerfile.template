@@ -1,0 +1,19 @@
+FROM appiriodevops/ap-microservice-base:0.0.1
+
+MAINTAINER mdesiderio@appirio.com
+
+WORKDIR /data
+
+COPY terms-microservice.jar /data/terms-microservice.jar
+
+COPY terms-service.yaml /data/terms-service.yaml
+
+COPY newrelic.yml /usr/local/share/newrelic/newrelic.yml
+
+COPY sumo-sources.json /data/sumo-sources.json
+
+COPY sumo.conf /etc/sumo.conf
+
+CMD /bin/bash /usr/local/share/sumocollector/collector start && java @ENV_JAVA_PARAMS@ -Ddw.authDomain="$AUTH_DOMAIN" -Ddw.databases[0].password="$OLTP_PW" -Ddw.databases[0].url="$OLTP_URL" -jar /data/terms-microservice.jar server /data/terms-service.yaml
+
+EXPOSE 8080 8081

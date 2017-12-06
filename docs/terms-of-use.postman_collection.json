@@ -1,0 +1,341 @@
+{
+	"variables": [],
+	"info": {
+		"name": "terms-of-use",
+		"_postman_id": "17d2434a-5e31-6be2-d505-21623c8124ac",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Agree terms of use",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJhZG1pbmlzdHJhdG9yIl0sImlzcyI6Imh0dHBzOi8vYXBpLnRvcGNvZGVyLWRldi5jb20iLCJoYW5kbGUiOiJoZWZmYW4iLCJleHAiOjE3NjYyODkyNDYsInVzZXJJZCI6IjEzMjQ1NiIsImlhdCI6MTQ1MDkyOTI0NiwiZW1haWwiOm51bGwsImp0aSI6IjEzNjljNjAwLWUwYTEtNDUyNS1hN2M3LTU2YmU3ZDgxM2Y1MSJ9.hp5peSoj-fh3KFkskvBpfUFIcJNtsv4zIMFV-D8F3JA"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": "http://localhost:8080/v3/terms/7777/agree"
+			},
+			"response": []
+		},
+		{
+			"name": "Agree terms of use (the term is not electronically agreeable)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJhZG1pbmlzdHJhdG9yIl0sImlzcyI6Imh0dHBzOi8vYXBpLnRvcGNvZGVyLWRldi5jb20iLCJoYW5kbGUiOiJoZWZmYW4iLCJleHAiOjE3NjYyODkyNDYsInVzZXJJZCI6IjEzMjQ1NiIsImlhdCI6MTQ1MDkyOTI0NiwiZW1haWwiOm51bGwsImp0aSI6IjEzNjljNjAwLWUwYTEtNDUyNS1hN2M3LTU2YmU3ZDgxM2Y1MSJ9.hp5peSoj-fh3KFkskvBpfUFIcJNtsv4zIMFV-D8F3JA"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": "http://localhost:8080/v3/terms/6666/agree"
+			},
+			"response": []
+		},
+		{
+			"name": "Agree terms of use (dependency terms not agreed)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJhZG1pbmlzdHJhdG9yIl0sImlzcyI6Imh0dHBzOi8vYXBpLnRvcGNvZGVyLWRldi5jb20iLCJoYW5kbGUiOiJoZWZmYW4iLCJleHAiOjE3NjYyODkyNDYsInVzZXJJZCI6IjEzMjQ1NiIsImlhdCI6MTQ1MDkyOTI0NiwiZW1haWwiOm51bGwsImp0aSI6IjEzNjljNjAwLWUwYTEtNDUyNS1hN2M3LTU2YmU3ZDgxM2Y1MSJ9.hp5peSoj-fh3KFkskvBpfUFIcJNtsv4zIMFV-D8F3JA"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": "http://localhost:8080/v3/terms/5555/agree"
+			},
+			"response": []
+		},
+		{
+			"name": "Agree terms of use (user banned for the terms of use)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJ1c2VyIl0sImlzcyI6Imh0dHBzOi8vYXBpLnRvcGNvZGVyLWRldi5jb20iLCJoYW5kbGUiOiJoZWZmYW4iLCJleHAiOjE3NjYyODkyNDYsInVzZXJJZCI6IjEzMjQ1OCIsImlhdCI6MTQ1MDkyOTI0NiwiZW1haWwiOm51bGwsImp0aSI6IjEzNjljNjAwLWUwYTEtNDUyNS1hN2M3LTU2YmU3ZDgxM2Y1MSJ9.QPY2GG6MB1I-q-ux3HEJu4L12Ej032cvyNY-ApMGq9Y"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": "http://localhost:8080/v3/terms/1111/agree"
+			},
+			"response": []
+		},
+		{
+			"name": "Agree terms of use (termsOfUse id not found)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJhZG1pbmlzdHJhdG9yIl0sImlzcyI6Imh0dHBzOi8vYXBpLnRvcGNvZGVyLWRldi5jb20iLCJoYW5kbGUiOiJoZWZmYW4iLCJleHAiOjE3NjYyODkyNDYsInVzZXJJZCI6IjEzMjQ1NiIsImlhdCI6MTQ1MDkyOTI0NiwiZW1haWwiOm51bGwsImp0aSI6IjEzNjljNjAwLWUwYTEtNDUyNS1hN2M3LTU2YmU3ZDgxM2Y1MSJ9.hp5peSoj-fh3KFkskvBpfUFIcJNtsv4zIMFV-D8F3JA"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": "http://localhost:8080/v3/terms/99999/agree"
+			},
+			"response": []
+		},
+		{
+			"name": "Agree terms of use (termsOfUse id not positive)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJhZG1pbmlzdHJhdG9yIl0sImlzcyI6Imh0dHBzOi8vYXBpLnRvcGNvZGVyLWRldi5jb20iLCJoYW5kbGUiOiJoZWZmYW4iLCJleHAiOjE3NjYyODkyNDYsInVzZXJJZCI6IjEzMjQ1NiIsImlhdCI6MTQ1MDkyOTI0NiwiZW1haWwiOm51bGwsImp0aSI6IjEzNjljNjAwLWUwYTEtNDUyNS1hN2M3LTU2YmU3ZDgxM2Y1MSJ9.hp5peSoj-fh3KFkskvBpfUFIcJNtsv4zIMFV-D8F3JA"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": "http://localhost:8080/v3/terms/-99999/agree"
+			},
+			"response": []
+		},
+		{
+			"name": "Get terms of use(aggreed)",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJhZG1pbmlzdHJhdG9yIl0sImlzcyI6Imh0dHBzOi8vYXBpLnRvcGNvZGVyLWRldi5jb20iLCJoYW5kbGUiOiJoZWZmYW4iLCJleHAiOjE3NjYyODkyNDYsInVzZXJJZCI6IjEzMjQ1NiIsImlhdCI6MTQ1MDkyOTI0NiwiZW1haWwiOm51bGwsImp0aSI6IjEzNjljNjAwLWUwYTEtNDUyNS1hN2M3LTU2YmU3ZDgxM2Y1MSJ9.hp5peSoj-fh3KFkskvBpfUFIcJNtsv4zIMFV-D8F3JA"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"param\": {\r\n    \"technologies\": [{\"id\":1,\"name\":\"node\"}, {\"id\":2,\"name\":\"Java\"}],\r\n    \"platforms\": [{\"id\":4,\"name\":\"Unix\"}, {\"id\":5,\"name\":\"Java\"}],\r\n    \"milestoneId\":1,\r\n    \"detailedRequirements\":\"requirement\",\r\n        \"submissionGuidelines\":\"guidelines\",\r\n    \"subTrack\": \"CODE\",\r\n    \"name\": \"code demo1\",\r\n    \"reviewType\": \"COMMUNITY\",\r\n    \"confidentialityType\": \"public\",\r\n    \"registrationStartsAt\": \"2017-04-01T09:00:00-04\",\r\n    \"submissionEndsAt\": \"2017-05-20T09:00:00-04\",\r\n    \"prizes\": [1600, 800],\r\n    \"projectId\": 1245\r\n  }\r\n}"
+				},
+				"url": "http://localhost:8080/v3/terms/detail/7777"
+			},
+			"response": []
+		},
+		{
+			"name": "Get terms of use(not agreed)",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJhZG1pbmlzdHJhdG9yIl0sImlzcyI6Imh0dHBzOi8vYXBpLnRvcGNvZGVyLWRldi5jb20iLCJoYW5kbGUiOiJoZWZmYW4iLCJleHAiOjE3NjYyODkyNDYsInVzZXJJZCI6IjEzMjQ1NiIsImlhdCI6MTQ1MDkyOTI0NiwiZW1haWwiOm51bGwsImp0aSI6IjEzNjljNjAwLWUwYTEtNDUyNS1hN2M3LTU2YmU3ZDgxM2Y1MSJ9.hp5peSoj-fh3KFkskvBpfUFIcJNtsv4zIMFV-D8F3JA"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"param\": {\r\n    \"technologies\": [{\"id\":1,\"name\":\"node\"}, {\"id\":2,\"name\":\"Java\"}],\r\n    \"platforms\": [{\"id\":4,\"name\":\"Unix\"}, {\"id\":5,\"name\":\"Java\"}],\r\n    \"milestoneId\":1,\r\n    \"detailedRequirements\":\"requirement\",\r\n        \"submissionGuidelines\":\"guidelines\",\r\n    \"subTrack\": \"CODE\",\r\n    \"name\": \"code demo1\",\r\n    \"reviewType\": \"COMMUNITY\",\r\n    \"confidentialityType\": \"public\",\r\n    \"registrationStartsAt\": \"2017-04-01T09:00:00-04\",\r\n    \"submissionEndsAt\": \"2017-05-20T09:00:00-04\",\r\n    \"prizes\": [1600, 800],\r\n    \"projectId\": 1245\r\n  }\r\n}"
+				},
+				"url": "http://localhost:8080/v3/terms/detail/9999"
+			},
+			"response": []
+		},
+		{
+			"name": "Get terms of use (for docusign template)",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJhZG1pbmlzdHJhdG9yIl0sImlzcyI6Imh0dHBzOi8vYXBpLnRvcGNvZGVyLWRldi5jb20iLCJoYW5kbGUiOiJoZWZmYW4iLCJleHAiOjE3NjYyODkyNDYsInVzZXJJZCI6IjEzMjQ1NiIsImlhdCI6MTQ1MDkyOTI0NiwiZW1haWwiOm51bGwsImp0aSI6IjEzNjljNjAwLWUwYTEtNDUyNS1hN2M3LTU2YmU3ZDgxM2Y1MSJ9.hp5peSoj-fh3KFkskvBpfUFIcJNtsv4zIMFV-D8F3JA"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"param\": {\r\n    \"technologies\": [{\"id\":1,\"name\":\"node\"}, {\"id\":2,\"name\":\"Java\"}],\r\n    \"platforms\": [{\"id\":4,\"name\":\"Unix\"}, {\"id\":5,\"name\":\"Java\"}],\r\n    \"milestoneId\":1,\r\n    \"detailedRequirements\":\"requirement\",\r\n        \"submissionGuidelines\":\"guidelines\",\r\n    \"subTrack\": \"CODE\",\r\n    \"name\": \"code demo1\",\r\n    \"reviewType\": \"COMMUNITY\",\r\n    \"confidentialityType\": \"public\",\r\n    \"registrationStartsAt\": \"2017-04-01T09:00:00-04\",\r\n    \"submissionEndsAt\": \"2017-05-20T09:00:00-04\",\r\n    \"prizes\": [1600, 800],\r\n    \"projectId\": 1245\r\n  }\r\n}"
+				},
+				"url": "http://localhost:8080/v3/terms/detail/2222"
+			},
+			"response": []
+		},
+		{
+			"name": "Get terms of use annoymous(noAuth=false)",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJ1c2VyIl0sImlzcyI6Imh0dHBzOi8vYXBpLnRvcGNvZGVyLWRldi5jb20iLCJoYW5kbGUiOiJoZWZmYW4iLCJleHAiOjE3NjYyODkyNDYsInVzZXJJZCI6IjEzMjQ1OCIsImlhdCI6MTQ1MDkyOTI0NiwiZW1haWwiOm51bGwsImp0aSI6IjEzNjljNjAwLWUwYTEtNDUyNS1hN2M3LTU2YmU3ZDgxM2Y1MSJ9.QPY2GG6MB1I-q-ux3HEJu4L12Ej032cvyNY-ApMGq9Y"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"param\": {\r\n    \"technologies\": [{\"id\":1,\"name\":\"node\"}, {\"id\":2,\"name\":\"Java\"}],\r\n    \"platforms\": [{\"id\":4,\"name\":\"Unix\"}, {\"id\":5,\"name\":\"Java\"}],\r\n    \"milestoneId\":1,\r\n    \"detailedRequirements\":\"requirement\",\r\n        \"submissionGuidelines\":\"guidelines\",\r\n    \"subTrack\": \"CODE\",\r\n    \"name\": \"code demo1\",\r\n    \"reviewType\": \"COMMUNITY\",\r\n    \"confidentialityType\": \"public\",\r\n    \"registrationStartsAt\": \"2017-04-01T09:00:00-04\",\r\n    \"submissionEndsAt\": \"2017-05-20T09:00:00-04\",\r\n    \"prizes\": [1600, 800],\r\n    \"projectId\": 1245\r\n  }\r\n}"
+				},
+				"url": "http://localhost:8080/v3/terms/detail/9999"
+			},
+			"response": []
+		},
+		{
+			"name": "Get terms of use annoymous(noAuth=true)",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJhZG1pbmlzdHJhdG9yIl0sImlzcyI6Imh0dHBzOi8vYXBpLnRvcGNvZGVyLWRldi5jb20iLCJoYW5kbGUiOiJoZWZmYW4iLCJleHAiOjE3NjYyODkyNDYsInVzZXJJZCI6IjEzMjQ1NiIsImlhdCI6MTQ1MDkyOTI0NiwiZW1haWwiOm51bGwsImp0aSI6IjEzNjljNjAwLWUwYTEtNDUyNS1hN2M3LTU2YmU3ZDgxM2Y1MSJ9.hp5peSoj-fh3KFkskvBpfUFIcJNtsv4zIMFV-D8F3JA",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"param\": {\r\n    \"technologies\": [{\"id\":1,\"name\":\"node\"}, {\"id\":2,\"name\":\"Java\"}],\r\n    \"platforms\": [{\"id\":4,\"name\":\"Unix\"}, {\"id\":5,\"name\":\"Java\"}],\r\n    \"milestoneId\":1,\r\n    \"detailedRequirements\":\"requirement\",\r\n        \"submissionGuidelines\":\"guidelines\",\r\n    \"subTrack\": \"CODE\",\r\n    \"name\": \"code demo1\",\r\n    \"reviewType\": \"COMMUNITY\",\r\n    \"confidentialityType\": \"public\",\r\n    \"registrationStartsAt\": \"2017-04-01T09:00:00-04\",\r\n    \"submissionEndsAt\": \"2017-05-20T09:00:00-04\",\r\n    \"prizes\": [1600, 800],\r\n    \"projectId\": 1245\r\n  }\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/v3/terms/detail/9999?noAuth=true",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v3",
+						"terms",
+						"detail",
+						"9999"
+					],
+					"query": [
+						{
+							"key": "noAuth",
+							"value": "true",
+							"equals": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get terms of use (docsign template id missing)",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJhZG1pbmlzdHJhdG9yIl0sImlzcyI6Imh0dHBzOi8vYXBpLnRvcGNvZGVyLWRldi5jb20iLCJoYW5kbGUiOiJoZWZmYW4iLCJleHAiOjE3NjYyODkyNDYsInVzZXJJZCI6IjEzMjQ1NiIsImlhdCI6MTQ1MDkyOTI0NiwiZW1haWwiOm51bGwsImp0aSI6IjEzNjljNjAwLWUwYTEtNDUyNS1hN2M3LTU2YmU3ZDgxM2Y1MSJ9.hp5peSoj-fh3KFkskvBpfUFIcJNtsv4zIMFV-D8F3JA"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"param\": {\r\n    \"technologies\": [{\"id\":1,\"name\":\"node\"}, {\"id\":2,\"name\":\"Java\"}],\r\n    \"platforms\": [{\"id\":4,\"name\":\"Unix\"}, {\"id\":5,\"name\":\"Java\"}],\r\n    \"milestoneId\":1,\r\n    \"detailedRequirements\":\"requirement\",\r\n        \"submissionGuidelines\":\"guidelines\",\r\n    \"subTrack\": \"CODE\",\r\n    \"name\": \"code demo1\",\r\n    \"reviewType\": \"COMMUNITY\",\r\n    \"confidentialityType\": \"public\",\r\n    \"registrationStartsAt\": \"2017-04-01T09:00:00-04\",\r\n    \"submissionEndsAt\": \"2017-05-20T09:00:00-04\",\r\n    \"prizes\": [1600, 800],\r\n    \"projectId\": 1245\r\n  }\r\n}"
+				},
+				"url": "http://localhost:8080/v3/terms/detail/8888"
+			},
+			"response": []
+		},
+		{
+			"name": "Get terms of use (termsOfUse id not found)",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJhZG1pbmlzdHJhdG9yIl0sImlzcyI6Imh0dHBzOi8vYXBpLnRvcGNvZGVyLWRldi5jb20iLCJoYW5kbGUiOiJoZWZmYW4iLCJleHAiOjE3NjYyODkyNDYsInVzZXJJZCI6IjEzMjQ1NiIsImlhdCI6MTQ1MDkyOTI0NiwiZW1haWwiOm51bGwsImp0aSI6IjEzNjljNjAwLWUwYTEtNDUyNS1hN2M3LTU2YmU3ZDgxM2Y1MSJ9.hp5peSoj-fh3KFkskvBpfUFIcJNtsv4zIMFV-D8F3JA"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"param\": {\r\n    \"technologies\": [{\"id\":1,\"name\":\"node\"}, {\"id\":2,\"name\":\"Java\"}],\r\n    \"platforms\": [{\"id\":4,\"name\":\"Unix\"}, {\"id\":5,\"name\":\"Java\"}],\r\n    \"milestoneId\":1,\r\n    \"detailedRequirements\":\"requirement\",\r\n        \"submissionGuidelines\":\"guidelines\",\r\n    \"subTrack\": \"CODE\",\r\n    \"name\": \"code demo1\",\r\n    \"reviewType\": \"COMMUNITY\",\r\n    \"confidentialityType\": \"public\",\r\n    \"registrationStartsAt\": \"2017-04-01T09:00:00-04\",\r\n    \"submissionEndsAt\": \"2017-05-20T09:00:00-04\",\r\n    \"prizes\": [1600, 800],\r\n    \"projectId\": 1245\r\n  }\r\n}"
+				},
+				"url": "http://localhost:8080/v3/terms/detail/9999998"
+			},
+			"response": []
+		},
+		{
+			"name": "Get terms of use (termsOfUse id not positive)",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJhZG1pbmlzdHJhdG9yIl0sImlzcyI6Imh0dHBzOi8vYXBpLnRvcGNvZGVyLWRldi5jb20iLCJoYW5kbGUiOiJoZWZmYW4iLCJleHAiOjE3NjYyODkyNDYsInVzZXJJZCI6IjEzMjQ1NiIsImlhdCI6MTQ1MDkyOTI0NiwiZW1haWwiOm51bGwsImp0aSI6IjEzNjljNjAwLWUwYTEtNDUyNS1hN2M3LTU2YmU3ZDgxM2Y1MSJ9.hp5peSoj-fh3KFkskvBpfUFIcJNtsv4zIMFV-D8F3JA"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"param\": {\r\n    \"technologies\": [{\"id\":1,\"name\":\"node\"}, {\"id\":2,\"name\":\"Java\"}],\r\n    \"platforms\": [{\"id\":4,\"name\":\"Unix\"}, {\"id\":5,\"name\":\"Java\"}],\r\n    \"milestoneId\":1,\r\n    \"detailedRequirements\":\"requirement\",\r\n        \"submissionGuidelines\":\"guidelines\",\r\n    \"subTrack\": \"CODE\",\r\n    \"name\": \"code demo1\",\r\n    \"reviewType\": \"COMMUNITY\",\r\n    \"confidentialityType\": \"public\",\r\n    \"registrationStartsAt\": \"2017-04-01T09:00:00-04\",\r\n    \"submissionEndsAt\": \"2017-05-20T09:00:00-04\",\r\n    \"prizes\": [1600, 800],\r\n    \"projectId\": 1245\r\n  }\r\n}"
+				},
+				"url": "http://localhost:8080/v3/terms/detail/-9999998"
+			},
+			"response": []
+		}
+	]
+}

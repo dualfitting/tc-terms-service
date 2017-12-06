@@ -1,0 +1,161 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: ap-terms-microservice
+  description: >
+    Services that provide access and interaction with terms.
+  license:
+    name: MIT
+    url: 'http://github.com/gruntjs/grunt/blob/master/LICENSE-MIT'
+host: api.topcoder.com
+basePath: /v3
+schemes:
+  - http
+  - https
+securityDefinitions:
+  bearer:
+    type: apiKey
+    name: Authorization
+    in: header
+paths:
+  /terms/detail/{termsOfUseId}:
+    get:
+      operationId: getTermsOfUse
+      security:
+        - bearer: []
+      description: Get terms of use
+      parameters:
+        - name: termsOfUseId
+          in: path
+          required: true
+          type: number
+          format: long
+          description: the terms of use id
+        - name: noAuth
+          in: query
+          required: false
+          type: boolean
+          description: a bool indicates no authentication required, default to false
+      responses:
+        '200':
+          description: Returns the terms of use
+          schema:
+            type: object
+            properties:
+              termsOfUseId:
+                type: number
+                format: long
+              title:
+                type: string
+              url:
+                type: string
+              text:
+                type: string
+              docusignTemplateId:
+                type: number
+                format: long
+              agreeabilityType:
+                type: string
+              agreed:
+                type: boolean
+        '400':
+          description: Invalid input
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '401':
+          description: Authentication credentials required
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '404':
+          description: If the challenge or any related data can not be found
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: Errors occur in the server side
+          schema:
+            $ref: '#/definitions/ErrorModel'
+  /terms/{termsOfUseId}/agree:
+    post:
+      operationId: agreeTermsOfUse
+      security:
+        - bearer: []
+      description: Agree terms of use
+      parameters:
+        - name: termsOfUseId
+          in: path
+          required: true
+          type: number
+          format: long
+          description: the terms of use id
+      responses:
+        '200':
+          description: return null
+          schema:
+            $ref: '#/definitions/NullResponse'
+        '400':
+          description: Invalid input
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '401':
+          description: Authentication credentials required
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '404':
+          description: If the challenge or any related data can not be found
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: Errors occur in the server side
+          schema:
+            $ref: '#/definitions/ErrorModel'
+definitions:
+  ResponseMetadata:
+    title: Metadata object for a response
+    type: object
+    properties:
+      totalCount:
+        type: integer
+        format: int32
+        description: Total count of the objects
+  ErrorModel:
+    type: object
+    properties:
+      id:
+        type: string
+        description: unique id identifying the request
+      version:
+        type: string
+      result:
+        type: object
+        properties:
+          success:
+            type: boolean
+          status:
+            description: http status code
+            type: number
+          metadata:
+            $ref: '#/definitions/ResponseMetadata'
+          content:
+            type: object
+  NullResponse:
+    title: The response with null content
+    type: object
+    properties:
+      id:
+        type: string
+        description: unique id identifying the request
+      version:
+        type: string
+      result:
+        type: object
+        properties:
+          success:
+            type: boolean
+          status:
+            type: number
+            description: http status code
+          metadata:
+            $ref: '#/definitions/ResponseMetadata'
+          content:
+            description: This content will be null
+            type: object
