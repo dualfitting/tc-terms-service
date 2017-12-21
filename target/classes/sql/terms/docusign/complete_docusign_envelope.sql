@@ -1,1 +1,0 @@
-UPDATE informixoltp\:docusign_envelope SET is_completed = 1 WHERE LOWER(docusign_envelope_id) = :envelopeId OR UPPER(docusign_envelope_id) = :envelopeId;

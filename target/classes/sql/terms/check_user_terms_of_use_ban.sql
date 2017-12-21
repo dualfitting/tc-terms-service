@@ -1,1 +1,0 @@
-SELECT 1 from common_oltp\:user_terms_of_use_ban_xref WHERE user_id = :userId AND terms_of_use_id = :termsOfUseId

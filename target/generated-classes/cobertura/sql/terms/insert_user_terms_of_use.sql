@@ -1,1 +1,0 @@
-INSERT INTO common_oltp\:user_terms_of_use_xref(user_id, terms_of_use_id) VALUES(:userId, :termsOfUseId)
