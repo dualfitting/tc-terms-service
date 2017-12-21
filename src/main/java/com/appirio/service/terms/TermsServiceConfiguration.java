@@ -5,6 +5,8 @@ package com.appirio.service.terms;
 
 import com.appirio.service.BaseAppConfiguration;
 import com.appirio.service.supply.resources.SupplyDatasourceFactory;
+import com.appirio.service.terms.config.DocusignConfiguration;
+import com.appirio.service.terms.config.SmtpConfiguration;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
@@ -28,6 +30,23 @@ public class TermsServiceConfiguration extends BaseAppConfiguration {
     @NotNull
     @JsonProperty
     private List<SupplyDatasourceFactory> databases = new ArrayList<>();
+    
+    /**
+     * Represents the docusignConfiguration attribute.
+     */
+    @Valid
+    @NotNull
+    @JsonProperty("docusignConfiguration")
+    private final DocusignConfiguration docusignConfiguration = new DocusignConfiguration();
+    
+    
+    /**
+     * Represents the smtpConfiguration attribute.
+     */
+    @Valid
+    @NotNull
+    @JsonProperty("smtpConfiguration")
+    private final SmtpConfiguration smtpConfiguration = new SmtpConfiguration();
 
     /**
      * Get the data source factory
@@ -36,5 +55,22 @@ public class TermsServiceConfiguration extends BaseAppConfiguration {
      */
     public List<SupplyDatasourceFactory> getDatabases() {
         return databases;
+    }
+
+    /**
+     * Get docusignConfiguration.
+     * @return the docusignConfiguration. 
+     */
+    public DocusignConfiguration getDocusignConfiguration() {
+        return this.docusignConfiguration;
+    }
+    
+
+    /**
+     * Get smtpConfiguration.
+     * @return the smtpConfiguration. 
+     */
+    public SmtpConfiguration getSmtpConfiguration() {
+        return this.smtpConfiguration;
     }
 }

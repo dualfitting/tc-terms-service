@@ -17,10 +17,12 @@ import java.util.TimeZone;
 
 /**
  * The entry point for the terms micro service
- * 
+ *  
+ * Version 1.1 - Topcoder - Re-implement Docusign Related APIs - Terms Service v1.0
+ * - create TermsFactory with the configuration
  *
  * @author TCSCODER
- * @version 1.0
+ * @version 1.1 
  */
 public class TermsServiceApplication extends BaseApplication<TermsServiceConfiguration> {
     /**
@@ -66,7 +68,7 @@ public class TermsServiceApplication extends BaseApplication<TermsServiceConfigu
      */
     @Override
     protected void registerResources(TermsServiceConfiguration config, Environment env) throws Exception {
-        env.jersey().register(new TermsFactory().getResourceInstance());
+        env.jersey().register(new TermsFactory(config).getResourceInstance());
 
         logger.info("Services registered");
     }

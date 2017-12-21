@@ -4,9 +4,13 @@
 package com.appirio.service.terms.resources;
 
 import com.appirio.service.supply.resources.MetadataApiResponseFactory;
+import com.appirio.service.terms.api.DocusignCallbackParam;
+import com.appirio.service.terms.api.DocusignViewUrlParam;
 import com.appirio.service.terms.api.TermsOfUse;
 import com.appirio.service.terms.manager.TermsManager;
 import com.appirio.supply.ErrorHandler;
+import com.appirio.supply.SupplyException;
+import com.appirio.tech.core.api.v3.request.PostPutRequest;
 import com.appirio.tech.core.api.v3.request.annotation.AllowAnonymous;
 import com.appirio.tech.core.api.v3.response.ApiResponse;
 import com.appirio.tech.core.auth.AuthUser;
@@ -17,6 +21,7 @@ import io.dropwizard.auth.Auth;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -31,9 +36,13 @@ import javax.ws.rs.core.SecurityContext;
 
 /**
  * TermsResource is used to add terms of use and get terms of use for user.
- *
+ * 
+ * Version 1.1 - Topcoder - Re-implement Docusign Related APIs - Terms Service v1.0
+ * - add the POST terms/docusignCallback and  POST terms/docusign/viewURL endpoints
+ * 
+ * 
  * @author TCSCODER
- * @since 1.0
+ * @version 1.1 
  */
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -101,6 +110,50 @@ public class TermsResource {
             return MetadataApiResponseFactory.createResponse(null);
         } catch (Exception e) {
             logger.error("Error in agreeTermsOfUse", e);
+            return ErrorHandler.handle(e, logger);
+        }
+    }
+    
+    /**
+     * Get docusign view url
+     *
+     * @param authUser the authUser to use
+     * @param request the request to use
+     * @return the ApiResponse result
+     */
+    @POST
+    @Path("/docusign/viewURL")
+    @Timed
+    public ApiResponse getDocusignViewURL(@Auth AuthUser authUser, @Valid PostPutRequest<DocusignViewUrlParam> request) {
+        try {
+            logger.debug("Enter of getDocusignViewURL method");
+            if (request == null) {
+                throw new SupplyException("Please provide the post body.", HttpServletResponse.SC_BAD_REQUEST);
+            }
+            return MetadataApiResponseFactory.createResponse(termsManager.getDocusignViewURL(authUser, request.getParam()));
+        } catch (Exception e) {
+            return ErrorHandler.handle(e, logger);
+        }
+    }
+    
+    /**
+     * Docusign callback method
+     *
+     * @param authUser the authUser to use
+     * @param request the request to use
+     * @return the ApiResponse result
+     */
+    @POST
+    @Path("/docusignCallback")
+    @Timed
+    public ApiResponse docusignCallback(@Auth AuthUser authUser, @Valid PostPutRequest<DocusignCallbackParam> request) {
+        try {
+            logger.debug("Enter of docusignCallback method");
+            if (request == null) {
+                throw new SupplyException("Please provide the post body.", HttpServletResponse.SC_BAD_REQUEST);
+            }
+            return MetadataApiResponseFactory.createResponse(termsManager.docusignCallback(request.getParam()));
+        } catch (Exception e) {
             return ErrorHandler.handle(e, logger);
         }
     }
