@@ -8,6 +8,9 @@ import com.appirio.service.resourcefactory.TermsFactory;
 import com.appirio.service.supply.resources.SupplyDatasourceFactory;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import io.dropwizard.configuration.EnvironmentVariableSubstitutor;
+import io.dropwizard.configuration.SubstitutingSourceProvider;
+import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigInteger;
@@ -21,8 +24,11 @@ import java.util.TimeZone;
  * Version 1.1 - Topcoder - Re-implement Docusign Related APIs - Terms Service v1.0
  * - create TermsFactory with the configuration
  *
+ * Version 1.2 Topcoder - Revise Configuration For Terms Service. 
+ * - Added initialize() method.
+ * 
  * @author TCSCODER
- * @version 1.1 
+ * @version 1.2
  */
 public class TermsServiceApplication extends BaseApplication<TermsServiceConfiguration> {
     /**
@@ -33,6 +39,19 @@ public class TermsServiceApplication extends BaseApplication<TermsServiceConfigu
         return "terms-service";
     }
 
+    /**
+     * Initializes the application to enable variable substitution with environment variables.
+     *
+     * @since 1.2
+     */
+    @Override
+    public void initialize(Bootstrap<TermsServiceConfiguration> bootstrap) {
+        super.initialize(bootstrap);
+        // Enable variable substitution with environment variables
+        bootstrap.setConfigurationSourceProvider(new SubstitutingSourceProvider(bootstrap
+            .getConfigurationSourceProvider(), new EnvironmentVariableSubstitutor(false)));
+    }
+    
     /**
      * Log service specific configuration values.
      * 

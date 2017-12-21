@@ -1,8 +1,8 @@
 {
 	"info": {
 		"name": "terms-of-use",
-		"_postman_id": "fdf163cc-1688-39ff-883b-3bbbfadbf318",
-		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+		"_postman_id": "68f687b6-f74b-e5e8-6512-eaa70edf6a78",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
@@ -26,7 +26,18 @@
 							"mode": "raw",
 							"raw": "{\n    \"param\": {\n        \"templateId\": \"19D958E1-E2EC-4828-B270-CA8F14CF7BF4\",\n        \"tabs\": [\"test_tab1||test_tab2\"],\n        \"returnUrl\": \"http://localhost:8080/test\"\n    }\n}"
 						},
-						"url": "http://localhost:8080/v3/terms/docusign/viewURL"
+						"url": {
+							"raw": "{{url}}/v3/terms/docusign/viewURL",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v3",
+								"terms",
+								"docusign",
+								"viewURL"
+							]
+						}
 					},
 					"response": []
 				},
@@ -48,7 +59,17 @@
 							"mode": "raw",
 							"raw": "{\n    \"param\": {\n    \t\"envelopeId\": \"9c64062a-aded-4c4d-a721-2a0538f954a3\",\n    \t\"envelopeStatus\": \"Completed\",\n        \"connectKey\": \"ABCDED-12435-EDFADSEC\",\n        \"tabs\": []\n    }\n}"
 						},
-						"url": "http://localhost:8080/v3/terms/docusignCallback"
+						"url": {
+							"raw": "{{url}}/v3/terms/docusignCallback",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v3",
+								"terms",
+								"docusignCallback"
+							]
+						}
 					},
 					"response": []
 				},
@@ -70,7 +91,17 @@
 							"mode": "raw",
 							"raw": "{\n    \"param\": {\n    \t\"envelopeId\": \"9c64062a-aded-4c4d-a721-2a0538f954a3\",\n    \t\"envelopeStatus\": \"Completed\",\n        \"tabs\": []\n    }\n}"
 						},
-						"url": "http://localhost:8080/v3/terms/docusignCallback"
+						"url": {
+							"raw": "{{url}}/v3/terms/docusignCallback",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v3",
+								"terms",
+								"docusignCallback"
+							]
+						}
 					},
 					"response": []
 				},
@@ -92,7 +123,18 @@
 							"mode": "raw",
 							"raw": "{\n    \"param\": {\n        \"templateId\": \"19D958E1-E2EC-4828-B270-CA8F14CF7BF4-1\",\n        \"tabs\": [\"test_tab1||test_tab2\"]\n    }\n}"
 						},
-						"url": "http://localhost:8080/v3/terms/docusign/viewURL"
+						"url": {
+							"raw": "{{url}}/v3/terms/docusign/viewURL",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v3",
+								"terms",
+								"docusign",
+								"viewURL"
+							]
+						}
 					},
 					"response": []
 				},
@@ -114,7 +156,18 @@
 							"mode": "raw",
 							"raw": "{\n    \"param\": {\n        \"templateId\": \"19D958E1-E2EC-4828-B270-CA8F14CF7BF4\",\n        \"tabs\": [\"test_tab1|-|test_tab2\"]\n    }\n}"
 						},
-						"url": "http://localhost:8080/v3/terms/docusign/viewURL"
+						"url": {
+							"raw": "{{url}}/v3/terms/docusign/viewURL",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v3",
+								"terms",
+								"docusign",
+								"viewURL"
+							]
+						}
 					},
 					"response": []
 				}
@@ -138,7 +191,18 @@
 					"mode": "raw",
 					"raw": ""
 				},
-				"url": "http://localhost:8080/v3/terms/7777/agree"
+				"url": {
+					"raw": "{{url}}/v3/terms/20623/agree",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v3",
+						"terms",
+						"20623",
+						"agree"
+					]
+				}
 			},
 			"response": []
 		},
@@ -160,7 +224,18 @@
 					"mode": "raw",
 					"raw": ""
 				},
-				"url": "http://localhost:8080/v3/terms/6666/agree"
+				"url": {
+					"raw": "{{url}}/v3/terms/6666/agree",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v3",
+						"terms",
+						"6666",
+						"agree"
+					]
+				}
 			},
 			"response": []
 		},
@@ -182,7 +257,18 @@
 					"mode": "raw",
 					"raw": ""
 				},
-				"url": "http://localhost:8080/v3/terms/5555/agree"
+				"url": {
+					"raw": "{{url}}/v3/terms/5555/agree",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v3",
+						"terms",
+						"5555",
+						"agree"
+					]
+				}
 			},
 			"response": []
 		},
@@ -204,7 +290,18 @@
 					"mode": "raw",
 					"raw": ""
 				},
-				"url": "http://localhost:8080/v3/terms/1111/agree"
+				"url": {
+					"raw": "{{url}}/v3/terms/1111/agree",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v3",
+						"terms",
+						"1111",
+						"agree"
+					]
+				}
 			},
 			"response": []
 		},
@@ -226,7 +323,18 @@
 					"mode": "raw",
 					"raw": ""
 				},
-				"url": "http://localhost:8080/v3/terms/99999/agree"
+				"url": {
+					"raw": "{{url}}/v3/terms/99999/agree",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v3",
+						"terms",
+						"99999",
+						"agree"
+					]
+				}
 			},
 			"response": []
 		},
@@ -248,7 +356,18 @@
 					"mode": "raw",
 					"raw": ""
 				},
-				"url": "http://localhost:8080/v3/terms/-99999/agree"
+				"url": {
+					"raw": "{{url}}/v3/terms/-99999/agree",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v3",
+						"terms",
+						"-99999",
+						"agree"
+					]
+				}
 			},
 			"response": []
 		},
@@ -270,7 +389,18 @@
 					"mode": "raw",
 					"raw": "{\r\n  \"param\": {\r\n    \"technologies\": [{\"id\":1,\"name\":\"node\"}, {\"id\":2,\"name\":\"Java\"}],\r\n    \"platforms\": [{\"id\":4,\"name\":\"Unix\"}, {\"id\":5,\"name\":\"Java\"}],\r\n    \"milestoneId\":1,\r\n    \"detailedRequirements\":\"requirement\",\r\n        \"submissionGuidelines\":\"guidelines\",\r\n    \"subTrack\": \"CODE\",\r\n    \"name\": \"code demo1\",\r\n    \"reviewType\": \"COMMUNITY\",\r\n    \"confidentialityType\": \"public\",\r\n    \"registrationStartsAt\": \"2017-04-01T09:00:00-04\",\r\n    \"submissionEndsAt\": \"2017-05-20T09:00:00-04\",\r\n    \"prizes\": [1600, 800],\r\n    \"projectId\": 1245\r\n  }\r\n}"
 				},
-				"url": "http://localhost:8080/v3/terms/detail/7777"
+				"url": {
+					"raw": "{{url}}/v3/terms/detail/20623",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v3",
+						"terms",
+						"detail",
+						"20623"
+					]
+				}
 			},
 			"response": []
 		},
@@ -292,7 +422,18 @@
 					"mode": "raw",
 					"raw": "{\r\n  \"param\": {\r\n    \"technologies\": [{\"id\":1,\"name\":\"node\"}, {\"id\":2,\"name\":\"Java\"}],\r\n    \"platforms\": [{\"id\":4,\"name\":\"Unix\"}, {\"id\":5,\"name\":\"Java\"}],\r\n    \"milestoneId\":1,\r\n    \"detailedRequirements\":\"requirement\",\r\n        \"submissionGuidelines\":\"guidelines\",\r\n    \"subTrack\": \"CODE\",\r\n    \"name\": \"code demo1\",\r\n    \"reviewType\": \"COMMUNITY\",\r\n    \"confidentialityType\": \"public\",\r\n    \"registrationStartsAt\": \"2017-04-01T09:00:00-04\",\r\n    \"submissionEndsAt\": \"2017-05-20T09:00:00-04\",\r\n    \"prizes\": [1600, 800],\r\n    \"projectId\": 1245\r\n  }\r\n}"
 				},
-				"url": "http://localhost:8080/v3/terms/detail/9999"
+				"url": {
+					"raw": "{{url}}/v3/terms/detail/20703",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v3",
+						"terms",
+						"detail",
+						"20703"
+					]
+				}
 			},
 			"response": []
 		},
@@ -314,7 +455,18 @@
 					"mode": "raw",
 					"raw": "{\r\n  \"param\": {\r\n    \"technologies\": [{\"id\":1,\"name\":\"node\"}, {\"id\":2,\"name\":\"Java\"}],\r\n    \"platforms\": [{\"id\":4,\"name\":\"Unix\"}, {\"id\":5,\"name\":\"Java\"}],\r\n    \"milestoneId\":1,\r\n    \"detailedRequirements\":\"requirement\",\r\n        \"submissionGuidelines\":\"guidelines\",\r\n    \"subTrack\": \"CODE\",\r\n    \"name\": \"code demo1\",\r\n    \"reviewType\": \"COMMUNITY\",\r\n    \"confidentialityType\": \"public\",\r\n    \"registrationStartsAt\": \"2017-04-01T09:00:00-04\",\r\n    \"submissionEndsAt\": \"2017-05-20T09:00:00-04\",\r\n    \"prizes\": [1600, 800],\r\n    \"projectId\": 1245\r\n  }\r\n}"
 				},
-				"url": "http://localhost:8080/v3/terms/detail/2222"
+				"url": {
+					"raw": "{{url}}/v3/terms/detail/21173",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v3",
+						"terms",
+						"detail",
+						"21173"
+					]
+				}
 			},
 			"response": []
 		},
@@ -336,7 +488,18 @@
 					"mode": "raw",
 					"raw": "{\r\n  \"param\": {\r\n    \"technologies\": [{\"id\":1,\"name\":\"node\"}, {\"id\":2,\"name\":\"Java\"}],\r\n    \"platforms\": [{\"id\":4,\"name\":\"Unix\"}, {\"id\":5,\"name\":\"Java\"}],\r\n    \"milestoneId\":1,\r\n    \"detailedRequirements\":\"requirement\",\r\n        \"submissionGuidelines\":\"guidelines\",\r\n    \"subTrack\": \"CODE\",\r\n    \"name\": \"code demo1\",\r\n    \"reviewType\": \"COMMUNITY\",\r\n    \"confidentialityType\": \"public\",\r\n    \"registrationStartsAt\": \"2017-04-01T09:00:00-04\",\r\n    \"submissionEndsAt\": \"2017-05-20T09:00:00-04\",\r\n    \"prizes\": [1600, 800],\r\n    \"projectId\": 1245\r\n  }\r\n}"
 				},
-				"url": "http://localhost:8080/v3/terms/detail/9999"
+				"url": {
+					"raw": "{{url}}/v3/terms/detail/9999",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v3",
+						"terms",
+						"detail",
+						"9999"
+					]
+				}
 			},
 			"response": []
 		},
@@ -361,12 +524,10 @@
 					"raw": "{\r\n  \"param\": {\r\n    \"technologies\": [{\"id\":1,\"name\":\"node\"}, {\"id\":2,\"name\":\"Java\"}],\r\n    \"platforms\": [{\"id\":4,\"name\":\"Unix\"}, {\"id\":5,\"name\":\"Java\"}],\r\n    \"milestoneId\":1,\r\n    \"detailedRequirements\":\"requirement\",\r\n        \"submissionGuidelines\":\"guidelines\",\r\n    \"subTrack\": \"CODE\",\r\n    \"name\": \"code demo1\",\r\n    \"reviewType\": \"COMMUNITY\",\r\n    \"confidentialityType\": \"public\",\r\n    \"registrationStartsAt\": \"2017-04-01T09:00:00-04\",\r\n    \"submissionEndsAt\": \"2017-05-20T09:00:00-04\",\r\n    \"prizes\": [1600, 800],\r\n    \"projectId\": 1245\r\n  }\r\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/v3/terms/detail/9999?noAuth=true",
-					"protocol": "http",
+					"raw": "{{url}}/v3/terms/detail/9999?noAuth=true",
 					"host": [
-						"localhost"
+						"{{url}}"
 					],
-					"port": "8080",
 					"path": [
 						"v3",
 						"terms",
@@ -402,7 +563,18 @@
 					"mode": "raw",
 					"raw": "{\r\n  \"param\": {\r\n    \"technologies\": [{\"id\":1,\"name\":\"node\"}, {\"id\":2,\"name\":\"Java\"}],\r\n    \"platforms\": [{\"id\":4,\"name\":\"Unix\"}, {\"id\":5,\"name\":\"Java\"}],\r\n    \"milestoneId\":1,\r\n    \"detailedRequirements\":\"requirement\",\r\n        \"submissionGuidelines\":\"guidelines\",\r\n    \"subTrack\": \"CODE\",\r\n    \"name\": \"code demo1\",\r\n    \"reviewType\": \"COMMUNITY\",\r\n    \"confidentialityType\": \"public\",\r\n    \"registrationStartsAt\": \"2017-04-01T09:00:00-04\",\r\n    \"submissionEndsAt\": \"2017-05-20T09:00:00-04\",\r\n    \"prizes\": [1600, 800],\r\n    \"projectId\": 1245\r\n  }\r\n}"
 				},
-				"url": "http://localhost:8080/v3/terms/detail/8888"
+				"url": {
+					"raw": "{{url}}/v3/terms/detail/8888",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v3",
+						"terms",
+						"detail",
+						"8888"
+					]
+				}
 			},
 			"response": []
 		},
@@ -424,7 +596,18 @@
 					"mode": "raw",
 					"raw": "{\r\n  \"param\": {\r\n    \"technologies\": [{\"id\":1,\"name\":\"node\"}, {\"id\":2,\"name\":\"Java\"}],\r\n    \"platforms\": [{\"id\":4,\"name\":\"Unix\"}, {\"id\":5,\"name\":\"Java\"}],\r\n    \"milestoneId\":1,\r\n    \"detailedRequirements\":\"requirement\",\r\n        \"submissionGuidelines\":\"guidelines\",\r\n    \"subTrack\": \"CODE\",\r\n    \"name\": \"code demo1\",\r\n    \"reviewType\": \"COMMUNITY\",\r\n    \"confidentialityType\": \"public\",\r\n    \"registrationStartsAt\": \"2017-04-01T09:00:00-04\",\r\n    \"submissionEndsAt\": \"2017-05-20T09:00:00-04\",\r\n    \"prizes\": [1600, 800],\r\n    \"projectId\": 1245\r\n  }\r\n}"
 				},
-				"url": "http://localhost:8080/v3/terms/detail/9999998"
+				"url": {
+					"raw": "{{url}}/v3/terms/detail/9999998",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v3",
+						"terms",
+						"detail",
+						"9999998"
+					]
+				}
 			},
 			"response": []
 		},
@@ -446,7 +629,18 @@
 					"mode": "raw",
 					"raw": "{\r\n  \"param\": {\r\n    \"technologies\": [{\"id\":1,\"name\":\"node\"}, {\"id\":2,\"name\":\"Java\"}],\r\n    \"platforms\": [{\"id\":4,\"name\":\"Unix\"}, {\"id\":5,\"name\":\"Java\"}],\r\n    \"milestoneId\":1,\r\n    \"detailedRequirements\":\"requirement\",\r\n        \"submissionGuidelines\":\"guidelines\",\r\n    \"subTrack\": \"CODE\",\r\n    \"name\": \"code demo1\",\r\n    \"reviewType\": \"COMMUNITY\",\r\n    \"confidentialityType\": \"public\",\r\n    \"registrationStartsAt\": \"2017-04-01T09:00:00-04\",\r\n    \"submissionEndsAt\": \"2017-05-20T09:00:00-04\",\r\n    \"prizes\": [1600, 800],\r\n    \"projectId\": 1245\r\n  }\r\n}"
 				},
-				"url": "http://localhost:8080/v3/terms/detail/-9999998"
+				"url": {
+					"raw": "{{url}}/v3/terms/detail/-9999998",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v3",
+						"terms",
+						"detail",
+						"-9999998"
+					]
+				}
 			},
 			"response": []
 		}

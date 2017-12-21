@@ -1,5 +1,5 @@
 authRealm: tcjwt
-authDomain: topcoder-dev.com
+authDomain: "${AUTH_DOMAIN:-topcoder-dev.com}"
 
 useResponseFilter: false
 
@@ -12,14 +12,11 @@ databases:
     driverClass: com.informix.jdbc.IfxDriver
 
     # the username
-    user: "${OLTP_USER}"
+    user: "${OLTP_USER:-informix}"
 
-    password: "${OLTP_PW}"
+    password: "${OLTP_PW:-1nf0rm1x}"
 
-    url: "${OLTP_URL}"
-
-    # the password
-    # NOTE: password is set as a java system property: i.e., -Ddw.database.password=<password>
+    url: "${OLTP_URL:-jdbc:informix-sqli://cockpit.cloud.topcoder.com:2021/tcs_catalog:INFORMIXSERVER=informixoltp_tcp;IFX_LOCK_MODE_WAIT=5;OPTCOMPIND=0;STMT_CACHE=1;}"
 
     validationQuery: select 1 from systables
 
@@ -28,31 +25,31 @@ databases:
     initialSize: 1
  
 docusignConfiguration:
-  username: 3c484022-cfd1-4be8-b199-951933a1e81b
-  password: dN1ofminimum
-  integratorKey: TOPC-a02ca014-0677-4e7f-946b-3a03f803c937
-  serverURL: https://demo.docusign.net/restapi/v2/
-  roleName: Member
-  clientUserId: Member
-  returnURL: http://localhost:8080/v2/terms/docusign/returnSigning&envelopeId=%s
-  assignmentV2TemplateId: E12C78DE-67B1-4150-BEC8-C44CE20A2F0B
-  w9TemplateId: 8E95BEB4-1C77-4CE2-97C7-5F64A3366370
-  w8benTemplateId: CD415871-17F5-4A1E-A007-FE416B030FFB
-  appirioMutualNDATemplateId: 19D958E1-E2EC-4828-B270-CA8F14CF7BF4
-  affidavitTemplateId: 9103DC77-D8F1-4D7B-BED1-6116604EE98C
-  assignmentDocTermsOfUseId: 20753
-  callbackFailedEmailSubject: Processing DocuSign document failed
-  callbackConnectKey: ABCDED-12435-EDFADSEC
-  supportEmailAddress: arahant7@yahoo.com
-  fromEmailAddress: do-not-reply@topcoder.com
+  username: "${DOCUSIGN_USERNAME:-3c484022-cfd1-4be8-b199-951933a1e81b}"
+  password: "${DOCUSIGN_PASSWORD:-dN1ofminimum}"
+  integratorKey: "${DOCUSIGN_INTEGRATOR_KEY:-TOPC-a02ca014-0677-4e7f-946b-3a03f803c937}"
+  serverURL: "${DOCUSIGN_SERVER_URL:-https://demo.docusign.net/restapi/v2/}"
+  roleName: "${DOCUSIGN_ROLE_NAME:-Member}"
+  clientUserId: "${DOCUSIGN_CLIENT_USER_ID:-Member}"
+  returnURL: "${DOCUSIGN_RETURN_URL:-http://localhost:8082/v2/terms/docusign/returnSigning&envelopeId=%s}"
+  assignmentV2TemplateId: "${ASSIGNMENT_V2_TEMPLATE_ID:-E12C78DE-67B1-4150-BEC8-C44CE20A2F0B}"
+  w9TemplateId: "${W9_TEMPLATE_ID:-8E95BEB4-1C77-4CE2-97C7-5F64A3366370}"
+  w8benTemplateId: "${W8BEN_TEMPLATE_ID:-CD415871-17F5-4A1E-A007-FE416B030FFB}"
+  appirioMutualNDATemplateId: "${APPIRIO_MUTUAL_NDA_TEMPLATE_ID:-19D958E1-E2EC-4828-B270-CA8F14CF7BF4}"
+  affidavitTemplateId: "${AFFIDAVIT_TEMPLATE_ID:-9103DC77-D8F1-4D7B-BED1-6116604EE98C}"
+  assignmentDocTermsOfUseId: "${ASSIGNMENT_DOC_TERMS_OF_USE_ID:-20753}"
+  callbackFailedEmailSubject: "${DOCUSIGN_CALLBACK_FAILED_EMAIL_SUBJECT:-Processing DocuSign document failed}"
+  callbackConnectKey: "${DOCUSIGN_CALLBACK_CONNECT_KEY:-ABCDED-12435-EDFADSEC}"
+  supportEmailAddress: "${DOCUSIGN_SUPPORT_EMAIL:-arahant7@yahoo.com}"
+  fromEmailAddress: "${DOCUSIGN_FROM_EMAIL:-do-not-reply@topcoder.com}"
   
 smtpConfiguration:
-    smtpHost: localhost
-    smtpPort: 25
-    smtpSender: tc@topcoder.com
-    smtpSecured: false
-    smtpUsername: tc.ldap.test.1@gmail.com
-    smtpPassword: tc.ldap.test.1@gmail.com
+    smtpHost: "${SMTP_HOST:-localhost}"
+    smtpPort: "${SMTP_PORT:-25}"
+    smtpSender: "${SMTP_SENDER:-tc@topcoder.com}"
+    smtpSecured: "${SMTP_SECURED:-false}"
+    smtpUsername: "${SMTP_USERNAME:-tc.ldap.test.1@gmail.com}"
+    smtpPassword: "${SMTP_PASSWORD:-tc.ldap.test.1@gmail.com}"
   
 # use the simple server factory if you only want to run on a single port
 #server:
