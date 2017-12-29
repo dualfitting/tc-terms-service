@@ -1,7 +1,5 @@
 FROM appiriodevops/ap-microservice-base:0.0.1
 
-MAINTAINER mdesiderio@appirio.com
-
 WORKDIR /data
 
 COPY terms-microservice.jar /data/terms-microservice.jar
