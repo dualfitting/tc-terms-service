@@ -11,10 +11,6 @@ DOCKER_REPO=appiriodevops/tc-terms-service
 
 cd $DEPLOY_DIR/docker
 
-echo "Generate sumo config files"
-cat sumo.conf.template | sed -e "s/@env@/${ENV}/g" > sumo.conf
-cat sumo-sources.json.template | sed -e "s/@env@/${ENV}/g" > sumo-sources.json
-
 echo "Copying deployment files to docker folder"
 cp $WORKSPACE/target/terms-microservice*.jar terms-microservice.jar
 cp $WORKSPACE/src/main/resources/terms-service.yaml terms-service.yaml

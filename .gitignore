@@ -2,7 +2,5 @@ target
 *.iml
 *.ipr
 *.iws
-.deploy/docker/sumo.conf
-.deploy/docker/sumo-sources.json
 .deploy/docker/terms-microservice.jar
 .deploy/docker/terms-service.yml

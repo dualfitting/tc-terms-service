@@ -8,10 +8,6 @@ COPY terms-service.yaml /data/terms-service.yaml
 
 COPY newrelic.yml /usr/local/share/newrelic/newrelic.yml
 
-COPY sumo-sources.json /data/sumo-sources.json
-
-COPY sumo.conf /etc/sumo.conf
-
-CMD /bin/bash /usr/local/share/sumocollector/collector start && java @ENV_JAVA_PARAMS@ -jar /data/terms-microservice.jar server /data/terms-service.yaml
+CMD java @ENV_JAVA_PARAMS@ -jar /data/terms-microservice.jar server /data/terms-service.yaml
 
 EXPOSE 8080 8081
