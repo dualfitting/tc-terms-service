@@ -7,7 +7,7 @@ SERVICE=$1
 ENV=$2
 TAG_SUFFIX=$3
 TAG="$ENV.$TAG_SUFFIX"
-IMAGE="$SERVICE-service:$TAG"
+IMAGE="tc-terms-service:$TAG"
 EB_REGION=us-east-1
 
 DOCKERRUN=$DEPLOY_DIR/Dockerrun.aws.json
