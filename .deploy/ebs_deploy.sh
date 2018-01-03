@@ -14,9 +14,9 @@ DOCKERRUN=$DEPLOY_DIR/Dockerrun.aws.json
 AWS_S3_KEY="services/docker/$IMAGE"
 
 case $ENV in
-  "DEV") S3_BUCKET="appirio-platform-dev";;
-  "QA") S3_BUCKET="appirio-platform-qa";;
-  "PROD") S3_BUCKET="appirio-platform-prod";;
+  "dev") S3_BUCKET="appirio-platform-dev";;
+  "qa") S3_BUCKET="appirio-platform-qa";;
+  "prod") S3_BUCKET="appirio-platform-prod";;
 esac
 
 # Elastic Beanstalk Application name
@@ -25,7 +25,7 @@ APPNAME="Development"
 if [ "$ENV" = "qa" ]; then
     APPNAME="QA"
 fi
-if [ "$ENV" = "PROD" ]; then
+if [ "$ENV" = "prod" ]; then
     APPNAME="Production"
 fi
 
