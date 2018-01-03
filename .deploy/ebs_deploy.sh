@@ -14,18 +14,24 @@ DOCKERRUN=$DEPLOY_DIR/Dockerrun.aws.json
 AWS_S3_KEY="services/docker/$IMAGE"
 
 case $ENV in
-  "dev") S3_BUCKET="appirio-platform-dev";;
-  "qa") S3_BUCKET="appirio-platform-qa";;
-  "prod") S3_BUCKET="appirio-platform-prod";;
+  "DEV") S3_BUCKET="appirio-platform-dev";;
+  "QA") S3_BUCKET="appirio-platform-qa";;
+  "PROD") S3_BUCKET="appirio-platform-prod";;
+esac
+
+case $ENV in
+  "DEV") ENV_NAME=$SERVICE-dev;;
+  "QA") ENV_NAME=$SERVICE-qa;;
+  "PROD") ENV_NAME=$SERVICE-prod;;
 esac
 
 # Elastic Beanstalk Application name
 # dev
 APPNAME="Development"
-if [ "$ENV" = "qa" ]; then
+if [ "$ENV" = "QA" ]; then
     APPNAME="QA"
 fi
-if [ "$ENV" = "prod" ]; then
+if [ "$ENV" = "PROD" ]; then
     APPNAME="Production"
 fi
 
@@ -43,7 +49,7 @@ aws s3 cp $DOCKERRUN s3://$S3_BUCKET/$AWS_S3_KEY
 echo "Creating new application version $IMAGE in $APPNAME from s3:${S3_BUCKET}/${AWS_S3_KEY}"
 aws elasticbeanstalk --region $EB_REGION create-application-version --application-name $APPNAME --version-label $IMAGE --source-bundle S3Bucket="$S3_BUCKET",S3Key="$AWS_S3_KEY"
 
-echo "updating elastic beanstalk environment $SERVICE-$ENV with the version $IMAGE."
+echo "updating elastic beanstalk environment $ENV_NAME with the version $IMAGE."
 # assumes beanstalk app for this service has already been created and configured
-aws elasticbeanstalk --region $EB_REGION update-environment --environment-name $SERVICE-$ENV --version-label $IMAGE
+aws elasticbeanstalk --region $EB_REGION update-environment --environment-name $ENV_NAME --version-label $IMAGE
 

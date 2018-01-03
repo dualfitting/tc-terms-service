@@ -14,10 +14,10 @@ deployment:
   development:
     branch: ["dev", "circleci"]
     commands:
-      - .deploy/dockerhub_push.sh dev $CIRCLE_BUILD_NUM
-      - .deploy/ebs_deploy.sh tc-terms dev $CIRCLE_BUILD_NUM
+      - .deploy/dockerhub_push.sh DEV $CIRCLE_BUILD_NUM
+      - .deploy/ebs_deploy.sh tc-terms DEV $CIRCLE_BUILD_NUM
   production:
     branch: master
     commands:
-      - .deploy/dockerhub_push.sh prod $CIRCLE_BUILD_NUM
-      - .deploy/ebs_deploy.sh tc-terms prod $CIRCLE_BUILD_NUM
+      - .deploy/dockerhub_push.sh PROD $CIRCLE_BUILD_NUM
+      - .deploy/ebs_deploy.sh tc-terms PROD $CIRCLE_BUILD_NUM
