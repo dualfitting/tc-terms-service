@@ -8,6 +8,6 @@ COPY terms-service.yaml /data/terms-service.yaml
 
 COPY newrelic.yml /usr/local/share/newrelic/newrelic.yml
 
-CMD java @ENV_JAVA_PARAMS@ -jar /data/terms-microservice.jar server /data/terms-service.yaml
+CMD java -jar /data/terms-microservice.jar server /data/terms-service.yaml
 
 EXPOSE 8080 8081
