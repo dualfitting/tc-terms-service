@@ -26,14 +26,7 @@ case $ENV in
 esac
 
 # Elastic Beanstalk Application name
-# dev
-APPNAME="Development"
-if [ "$ENV" = "QA" ]; then
-    APPNAME="QA"
-fi
-if [ "$ENV" = "PROD" ]; then
-    APPNAME="Production"
-fi
+APPNAME=tc-terms-service
 
 echo "Deploying to Elasticbeanstalk"
 echo "############################"
