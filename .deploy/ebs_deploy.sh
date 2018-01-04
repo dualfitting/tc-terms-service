@@ -11,7 +11,7 @@ IMAGE="tc-terms-service:$TAG"
 EB_REGION=us-east-1
 
 DOCKERRUN=$DEPLOY_DIR/Dockerrun.aws.json
-AWS_S3_KEY="services/docker/$IMAGE"
+AWS_S3_KEY="services/elasticbeanstalk/tc-terms-service/$IMAGE"
 
 case $ENV in
   "DEV") S3_BUCKET="appirio-platform-dev";;
