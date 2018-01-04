@@ -1,11 +1,11 @@
 {
   "AWSEBDockerrunVersion": "1",
   "Authentication": {
-    "Bucket": "appirio-platform-dev",
+    "Bucket": "%S3_BUCKET%",
     "Key": "services/common/dockercfg"
   },
   "Image": {
-    "Name": "appiriodevops/@IMAGE@",
+    "Name": "appiriodevops/%IMAGE%",
     "Update": "true"
   },
   "Ports": [

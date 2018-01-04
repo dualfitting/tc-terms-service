@@ -1,1 +1,6 @@
 target
+*.iml
+*.ipr
+*.iws
+.deploy/docker/terms-microservice.jar
+.deploy/docker/terms-service.yml
