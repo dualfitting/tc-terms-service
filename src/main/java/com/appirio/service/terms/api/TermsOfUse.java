@@ -61,7 +61,7 @@ public class TermsOfUse {
      */
     @Getter
     @Setter
-    private Long docusignTemplateId;
+    private String docusignTemplateId;
 
 
     /**
