@@ -49,12 +49,13 @@ build_ecr_image() {
 }
 
 push_ecr_image() {	
-	echo "Pushing Docker Image..."
+	echo "Pushing Docker Image...."
 	eval $(aws ecr get-login --region $AWS_REGION --no-include-email)
 	echo $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$AWS_REPOSITORY:$CIRCLE_SHA1
 	docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$AWS_REPOSITORY:$CIRCLE_SHA1
 	echo "Docker Image published."
 }
+
 
 configure_aws_cli
 build_ecr_image
