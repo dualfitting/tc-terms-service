@@ -32,5 +32,5 @@ configure_aws_cli
 eval $(aws ecr get-login  --region $AWS_REGION)
 # Builds Docker image of the app.
 TAG=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$AWS_REPOSITORY:$CIRCLE_SHA1
-docker build -f docker/Dockerfile -t $TAG .
+docker build -f .deploy/docker/Dockerfile -t $TAG .
 exit $?
