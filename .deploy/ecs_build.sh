@@ -53,4 +53,12 @@ eval $(aws ecr get-login  --region $AWS_REGION)
 # Builds Docker image of the app.
 TAG=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$AWS_REPOSITORY:$CIRCLE_SHA1
 docker build -t $TAG .
+
+
+echo "Pushing Docker Image..."
+eval $(aws ecr get-login --region $AWS_REGION --no-include-email)
+docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$AWS_REPOSITORY:$TAG
+echo "Docker Image published."
+
+
 exit $?
