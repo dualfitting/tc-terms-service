@@ -6,6 +6,7 @@
   <name>terms-microservice</name>
   <version>1.0.0</version>
   <build>
+    <finalName>terms-microservice</finalName>
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
