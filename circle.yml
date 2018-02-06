@@ -14,8 +14,8 @@ deployment:
   development:
     branch: ["cc-ecs"]
     commands:      
-      - ./.deploy/ecs_build.sh DEV $CIRCLE_BUILD_NUM
-      - ./.deploy/ecs_deploy.sh terms-service DEV $CIRCLE_BUILD_NUM
+      - .deploy/ecs_build.sh DEV $CIRCLE_BUILD_NUM
+      - .deploy/ecs_deploy.sh terms-service DEV $CIRCLE_BUILD_NUM
   production:
     branch: master
     commands:
