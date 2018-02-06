@@ -46,6 +46,7 @@ build_ecr_image() {
 	eval $(aws ecr get-login  --region $AWS_REGION)
 	# Builds Docker image of the app.
 	#$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$AWS_REPOSITORY:$CIRCLE_SHA1
+	TAG=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$AWS_REPOSITORY:$CIRCLE_SHA1
 	docker build -t $TAG .
 }
 
