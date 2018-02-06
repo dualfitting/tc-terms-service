@@ -14,6 +14,12 @@ AWS_ACCOUNT_ID=$(eval "echo \$${ENV}_AWS_ACCOUNT_ID")
 AWS_REPOSITORY=$(eval "echo \$${ENV}_AWS_REPOSITORY")
 #APP_NAME
 
+# Define script variables
+DEPLOY_DIR="$( cd "$( dirname "$0" )" && pwd )"
+WORKSPACE=$PWD
+
+
+
 #Converting environment varibale as lower case for build purpose
 #ENV=`echo "$ENV" | tr '[:upper:]' '[:lower:]'`
 #echo "$ENV after case conversion"
@@ -29,8 +35,22 @@ configure_aws_cli() {
 
 
 configure_aws_cli
+
+
+
+cd $DEPLOY_DIR/docker
+
+echo "Copying deployment files to docker folder"
+cp $WORKSPACE/target/terms-microservice*.jar terms-microservice.jar
+cp $WORKSPACE/src/main/resources/terms-service.yaml terms-service.yaml
+
+echo "Logging into docker"
+echo "############################"
+docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASSWD
+
+
 eval $(aws ecr get-login  --region $AWS_REGION)
 # Builds Docker image of the app.
 TAG=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$AWS_REPOSITORY:$CIRCLE_SHA1
-docker build -f .deploy/docker/Dockerfile -t $TAG .
+docker build -t $TAG .
 exit $?

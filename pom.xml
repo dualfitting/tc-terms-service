@@ -16,7 +16,6 @@
 	</properties>
 
 	<build>
-	 <finalName>terms-microservice</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
