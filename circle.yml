@@ -14,10 +14,10 @@ deployment:
   development:
     branch: ["cc-ecs"]
     commands:      
-      - .deploy/ecs_build.sh DEV $CIRCLE_BUILD_NUM
+      - .deploy/ecs_build.sh DEV $CIRCLE_SHA1
       - .deploy/ecs_deploy.sh terms-service DEV $CIRCLE_SHA1
   production:
     branch: master
     commands:
-      - .deploy/dockerhub_push.sh PROD $CIRCLE_BUILD_NUM
+      - .deploy/dockerhub_push.sh PROD $CIRCLE_SHA1
       - .deploy/ebs_deploy.sh terms-service PROD $CIRCLE_SHA1
