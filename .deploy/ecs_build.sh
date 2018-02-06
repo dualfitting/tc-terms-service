@@ -18,7 +18,15 @@ AWS_REPOSITORY=$(eval "echo \$${ENV}_AWS_REPOSITORY")
 DEPLOY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 WORKSPACE=$PWD
 
+cd $DEPLOY_DIR/docker
 
+echo "Copying deployment files to docker folder"
+cp $WORKSPACE/target/terms-microservice*.jar terms-microservice.jar
+cp $WORKSPACE/src/main/resources/terms-service.yaml terms-service.yaml
+
+echo "Logging into docker"
+echo "############################"
+docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASSWD
 
 #Converting environment varibale as lower case for build purpose
 #ENV=`echo "$ENV" | tr '[:upper:]' '[:lower:]'`
@@ -33,32 +41,23 @@ configure_aws_cli() {
 	echo "Configured AWS CLI."
 }
 
+build_ecr_image() {
+	eval $(aws ecr get-login  --region $AWS_REGION)
+	# Builds Docker image of the app.
+	TAG=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$AWS_REPOSITORY:$CIRCLE_SHA1
+	docker build -t $TAG .
+}
+
+push_ecr_image() {	
+	echo "Pushing Docker Image..."
+	eval $(aws ecr get-login --region $AWS_REGION --no-include-email)
+	echo $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$AWS_REPOSITORY:$TAG
+	docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$AWS_REPOSITORY:$TAG
+	echo "Docker Image published."
+}
 
 configure_aws_cli
-
-
-
-cd $DEPLOY_DIR/docker
-
-echo "Copying deployment files to docker folder"
-cp $WORKSPACE/target/terms-microservice*.jar terms-microservice.jar
-cp $WORKSPACE/src/main/resources/terms-service.yaml terms-service.yaml
-
-echo "Logging into docker"
-echo "############################"
-docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASSWD
-
-
-eval $(aws ecr get-login  --region $AWS_REGION)
-# Builds Docker image of the app.
-TAG=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$AWS_REPOSITORY:$CIRCLE_SHA1
-docker build -t $TAG .
-
-
-echo "Pushing Docker Image..."
-eval $(aws ecr get-login --region $AWS_REGION --no-include-email)
-docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$AWS_REPOSITORY:$TAG
-echo "Docker Image published."
-
+build_ecr_image
+push_ecr_image
 
 exit $?
