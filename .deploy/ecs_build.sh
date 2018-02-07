@@ -55,9 +55,8 @@ push_ecr_image() {
 	eval $(aws ecr get-login --region $AWS_REGION --no-include-email)
 	echo $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$AWS_REPOSITORY:$TAG
 	docker push $TAG
-	echo "Docker Image published."
+	echo "D ocker Image published."
 }
-
 
 configure_aws_cli
 build_ecr_image
