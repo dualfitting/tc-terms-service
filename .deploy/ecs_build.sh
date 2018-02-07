@@ -17,7 +17,7 @@ AWS_REPOSITORY=$(eval "echo \$${ENV}_AWS_REPOSITORY")
 # Define script variables
 DEPLOY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 WORKSPACE=$PWD
-TAG=$CIRCLE_SHA1
+RANDOM_HASH=$1
 
 cd $DEPLOY_DIR/docker
 
@@ -46,7 +46,7 @@ build_ecr_image() {
 	eval $(aws ecr get-login  --region $AWS_REGION)
 	# Builds Docker image of the app.
 	#$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$AWS_REPOSITORY:$CIRCLE_SHA1
-	TAG=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$AWS_REPOSITORY:$CIRCLE_SHA1
+	TAG=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$AWS_REPOSITORY:$RANDOM_HASH
 	docker build -t $TAG .
 }
 
