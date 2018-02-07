@@ -4,6 +4,7 @@ machine:
 
 dependencies:
   pre:
+    - sudo apt install jq 
     - pip install awscli --upgrade
 
 test:
@@ -21,3 +22,6 @@ deployment:
     commands:
       - .deploy/dockerhub_push.sh PROD $CIRCLE_SHA1
       - .deploy/ebs_deploy.sh terms-service PROD $CIRCLE_SHA1
+
+
+
