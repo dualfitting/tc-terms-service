@@ -29,7 +29,7 @@ cp $WORKSPACE/src/main/resources/terms-service.yaml terms-service.yaml
 
 echo "Logging into docker"
 echo "############################"
-docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASSWD
+#docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASSWD
 
 #Converting environment varibale as lower case for build purpose
 #ENV=`echo "$ENV" | tr '[:upper:]' '[:lower:]'`
