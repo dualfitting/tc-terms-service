@@ -187,6 +187,22 @@ check_service_status() {
         echo "$servicestatus"
 }
 
+deploy_cluster() {
+
+    make_task_def
+    register_definition
+    update_result=$(aws ecs update-service --cluster $AWS_ECS_CLUSTER --service $AWS_ECS_SERVICE --task-definition $revision )
+    result=$(echo $update_result | $JQ '.service.taskDefinition' )
+    echo $result
+    if [[ $result != $revision ]]; then
+        echo "Error updating service."
+        return 1
+    fi
+
+    echo "Update service intialised successfully for deployment"
+    return 0
+}
+
 
 configure_aws_cli
 build_ecr_image
