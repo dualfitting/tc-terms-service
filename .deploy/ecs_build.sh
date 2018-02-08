@@ -29,7 +29,7 @@ cp $WORKSPACE/src/main/resources/terms-service.yaml terms-service.yaml
 
 echo "Logging into docker"
 echo "############################"
-docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASSWD
+#docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASSWD
 
 #Converting environment varibale as lower case for build purpose
 #ENV=`echo "$ENV" | tr '[:upper:]' '[:lower:]'`
@@ -45,7 +45,7 @@ configure_aws_cli() {
 }
 
 build_ecr_image() {
-	eval $(aws ecr get-login  --region $AWS_REGION)
+	eval $(aws ecr get-login)
 	# Builds Docker image of the app.
 	#$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$AWS_REPOSITORY:$CIRCLE_SHA1
 	TAG=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$AWS_REPOSITORY:$CIRCLE_SHA1
@@ -54,7 +54,7 @@ build_ecr_image() {
 
 push_ecr_image() {	
 	echo "Pushing Docker Image...."
-	eval $(aws ecr get-login --region $AWS_REGION --no-include-email)
+	eval $(aws ecr get-login)
 	echo $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$AWS_REPOSITORY:$TAG
 	docker push $TAG
 	echo "Docker Image published."
