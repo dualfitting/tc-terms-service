@@ -155,7 +155,43 @@ make_task_def(){
 		}
 	]'
 	
-	task_def=$(printf "$task_template" $AWS_ECS_CONTAINER_NAME $AWS_ACCOUNT_ID $AWS_REGION $AWS_REPOSITORY $TAG $AUTH_DOMAIN $DOCUSIGN_INTEGRATOR_KEY $DOCUSIGN_NDA_TEMPLATE_ID $DOCUSIGN_PASSWORD $DOCUSIGN_RETURN_URL $DOCUSIGN_SERVER_URL $DOCUSIGN_USERNAME $OLTP_PW $OLTP_URL $OLTP_URL $OLTP_USER $SMTP_HOST $SMTP_PASSWORD $SMTP_SENDER $SMTP_USERNAME $TC_JWT_KEY $AWS_ECS_CLUSTER $AWS_REGION)
+	task_def=$(printf "$task_template" $AWS_ECS_CONTAINER_NAME $AWS_ACCOUNT_ID $AWS_REGION $AWS_REPOSITORY $TAG "$AUTH_DOMAIN" $DOCUSIGN_INTEGRATOR_KEY $DOCUSIGN_NDA_TEMPLATE_ID $DOCUSIGN_PASSWORD $DOCUSIGN_RETURN_URL $DOCUSIGN_SERVER_URL $DOCUSIGN_USERNAME $OLTP_PW $OLTP_URL $OLTP_URL $OLTP_USER $SMTP_HOST $SMTP_PASSWORD $SMTP_SENDER $SMTP_USERNAME $TC_JWT_KEY $AWS_ECS_CLUSTER $AWS_REGION)
+}
+
+register_definition() {
+    if revision=$(aws ecs register-task-definition --container-definitions "$task_def" --family $family | $JQ '.taskDefinition.taskDefinitionArn'); then
+        echo "Revision: $revision"
+    else
+        echo "Failed to register task definition"
+        return 1
+    fi
+
+}
+
+check_service_status() {
+        counter=0
+	sleep 60
+        servicestatus=`aws ecs describe-services --service $AWS_ECS_SERVICE --cluster $AWS_ECS_CLUSTER | $JQ '.services[].events[0].message'`
+        while [[ $servicestatus != *"steady state"* ]]
+        do
+           echo "Current event message : $servicestatus"
+           echo "Waiting for 30 sec to check the service status...."
+           sleep 30
+           servicestatus=`aws ecs describe-services --service $AWS_ECS_SERVICE --cluster $AWS_ECS_CLUSTER | $JQ '.services[].events[0].message'`
+           counter=`expr $counter + 1`
+           if [[ $counter -gt $COUNTER_LIMIT ]] ; then
+                echo "Service does not reach steady state with in 10 minutes. Please check"
+                exit 1
+           fi
+        done
+        echo "$servicestatus"
+}
+
+configure_aws_cli
+push_ecr_image
+deploy_cluster
+check_service_status
+	
 }
 
 register_definition() {
