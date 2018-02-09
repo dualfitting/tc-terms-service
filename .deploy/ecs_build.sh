@@ -214,5 +214,5 @@ configure_aws_cli
 build_ecr_image
 push_ecr_image
 deploy_cluster
-check_service_status
+//check_service_status
 exit $?
