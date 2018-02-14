@@ -6,6 +6,7 @@ package com.appirio.service.terms;
 import com.appirio.service.BaseApplication;
 import com.appirio.service.resourcefactory.TermsFactory;
 import com.appirio.service.supply.resources.SupplyDatasourceFactory;
+import com.appirio.service.terms.resources.HealthCheckResource;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import io.dropwizard.configuration.EnvironmentVariableSubstitutor;
@@ -88,6 +89,7 @@ public class TermsServiceApplication extends BaseApplication<TermsServiceConfigu
     @Override
     protected void registerResources(TermsServiceConfiguration config, Environment env) throws Exception {
         env.jersey().register(new TermsFactory(config).getResourceInstance());
+        env.jersey().register(new HealthCheckResource());
 
         logger.info("Services registered");
     }
