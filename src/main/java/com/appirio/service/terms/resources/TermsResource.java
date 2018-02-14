@@ -157,4 +157,17 @@ public class TermsResource {
             return ErrorHandler.handle(e, logger);
         }
     }
+
+    /**
+     * Checks the health.
+     *
+     * @return the ApiResponse result
+     */
+    @GET
+    @Path("/healthcheck")
+    @Timed
+    @AllowAnonymous
+    public ApiResponse checkHealth() {
+        return MetadataApiResponseFactory.createResponse(null);
+    }
 }
