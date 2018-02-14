@@ -68,7 +68,8 @@ push_ecr_image() {
 }
 
 make_task_def(){
-	task_template='[
+	task_template=cat <<-END 
+	[
 		{
 		"name": "%s",
 		"image": "%s.dkr.ecr.%s.amazonaws.com/%s:%s",
@@ -148,7 +149,8 @@ make_task_def(){
           "protocol": "tcp",
           "containerPort": 8081
         }
-      ],
+      ]
+      END
 		"logConfiguration": {
 			"logDriver": "awslogs",
 				"options": {
