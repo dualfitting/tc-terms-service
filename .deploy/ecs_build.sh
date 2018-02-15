@@ -71,13 +71,12 @@ make_task_def(){
 task_template=$(cat <<-END
 {  
   "cpu": "500",
-  "memory": 2048,    
+  "memory": "2048",    
   "containerDefinitions": [
     {
     "name": "%s",
     "image": "%s.dkr.ecr.%s.amazonaws.com/%s:%s",
-    "essential": true,
-    "memory": 2048,    
+    "essential": true,       
     "environment": [
         {
           "name": "AUTH_DOMAIN",
