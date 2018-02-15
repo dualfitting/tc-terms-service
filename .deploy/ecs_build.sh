@@ -183,8 +183,8 @@ END
 
 register_definition() {
     echo "register definition"
-    echo aws ecs register-task-definition --cli-input-json file://config.json --family $family | $JQ '.taskDefinition.taskDefinitionArn')
-    if revision=$(aws ecs register-task-definition --cli-input-json file://config.json --family $family | $JQ '.taskDefinition.taskDefinitionArn')); then
+    echo aws ecs register-task-definition --cli-input-json file://config.json --family --family $family 
+    if revision=$(aws ecs register-task-definition --cli-input-json file://config.json --family $family | $JQ '.taskDefinition.taskDefinitionArn'); then
         echo "Revision: $revision"
     else
         echo "Failed to register task definition"
