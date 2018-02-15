@@ -161,7 +161,9 @@ task_template=$(cat <<-END
       }
     }
   ],
-"family": "%s"
+"family": "%s",
+"requiresCompatibilities": ["FARGATE"],
+"networkMode": "awsvpc"
 }
 END
 )
@@ -177,13 +179,13 @@ END
   task_def=$(printf "$task_template" $AWS_ECS_CONTAINER_NAME $AWS_ACCOUNT_ID $AWS_REGION $AWS_REPOSITORY $TAG "$AUTH_DOMAIN" $DOCUSIGN_INTEGRATOR_KEY $DOCUSIGN_NDA_TEMPLATE_ID $DOCUSIGN_PASSWORD $DOCUSIGN_RETURN_URL $DOCUSIGN_SERVER_URL $DOCUSIGN_USERNAME $OLTP_PW $OLTP_URL $OLTP_USER $SMTP_HOST $SMTP_PASSWORD $SMTP_SENDER $SMTP_USERNAME $TC_JWT_KEY $AWS_ECS_CLUSTER $AWS_REGION $family_val)
   echo "-------- task def after injection:"
   echo $task_def
-  echo $task_def >> config.json
+  echo $task_def > config.json
 }
 
 
 register_definition() {
     echo "register definition"
-    echo aws ecs register-task-definition --cli-input-json file://config.json --family --family $family 
+    echo aws ecs register-task-definition --cli-input-json file://config.json --family $family
     if revision=$(aws ecs register-task-definition --cli-input-json file://config.json --family $family | $JQ '.taskDefinition.taskDefinitionArn'); then
         echo "Revision: $revision"
     else
