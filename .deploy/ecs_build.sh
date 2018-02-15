@@ -70,7 +70,7 @@ push_ecr_image() {
 make_task_def(){
 task_template=$(cat <<-END
 {
-  "executionRoleArn":"arn:aws:iam::811668436784:user/sushil",
+  
   "containerDefinitions": [
     {
     "name": "%s",
@@ -187,7 +187,7 @@ END
 register_definition() {
     echo "register definition"
     echo aws ecs register-task-definition --cli-input-json file://config.json --family $family
-    if revision=$(aws ecs register-task-definition --cli-input-json file://config.json --family $family | $JQ '.taskDefinition.taskDefinitionArn'); then
+    if revision=$(aws ecs register-task-definition --execution-role-arn "arn:aws:iam::811668436784:role/EcsTaskExecutionRole" --task-role-arn "arn:aws:iam::811668436784:role/EcsTaskExecutionRole" --cli-input-json file://config.json --family $family | $JQ '.taskDefinition.taskDefinitionArn'); then
         echo "Revision: $revision"
     else
         echo "Failed to register task definition"
