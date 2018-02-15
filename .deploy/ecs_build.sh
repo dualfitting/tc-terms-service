@@ -1,9 +1,9 @@
 #!/bin/bash
 ENV=$1
 if [[ -z "$ENV" ]] ; then
-	echo "Environment should be set on startup with one of the below values"
-	echo "ENV must be one of - DEV, QA, PROD or LOCAL"
-	exit
+  echo "Environment should be set on startup with one of the below values"
+  echo "ENV must be one of - DEV, QA, PROD or LOCAL"
+  exit
 fi
 
 echo "$ENV before case conversion"
@@ -42,137 +42,140 @@ docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASSWD
 #echo "$ENV after case conversion"
 
 configure_aws_cli() {
-	aws --version
-	aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
-	aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
-	aws configure set default.region $AWS_REGION
-	aws configure set default.output json
-	echo "Configured AWS CLI."
+  aws --version
+  aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+  aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+  aws configure set default.region $AWS_REGION
+  aws configure set default.output json
+  echo "Configured AWS CLI."
 }
 
 build_ecr_image() {
-	eval $(aws ecr get-login  --region $AWS_REGION)
-	#eval $(aws ecr get-login)
-	# Builds Docker image of the app.
-	#$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$AWS_REPOSITORY:$CIRCLE_SHA1
-	TAG=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$AWS_REPOSITORY:$CIRCLE_SHA1
-	docker build -t $TAG .
+  eval $(aws ecr get-login  --region $AWS_REGION)
+  #eval $(aws ecr get-login)
+  # Builds Docker image of the app.
+  #$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$AWS_REPOSITORY:$CIRCLE_SHA1
+  TAG=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$AWS_REPOSITORY:$CIRCLE_SHA1
+  docker build -t $TAG .
 }
 
 push_ecr_image() {
-	echo "Pushing Docker Image...."
-	eval $(aws ecr get-login --region $AWS_REGION --no-include-email)
-	echo $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$AWS_REPOSITORY:$TAG
-	docker push $TAG
-	echo "Docker Image published."
+  echo "Pushing Docker Image...."
+  eval $(aws ecr get-login --region $AWS_REGION --no-include-email)
+  echo $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$AWS_REPOSITORY:$TAG
+  docker push $TAG
+  echo "Docker Image published."
 }
 
 make_task_def(){
 task_template=$(cat <<-END
-"[
-  {
-  \\\"name\\\": \\\"%s\\\",
-  \\\"image\\\": \\\"%s.dkr.ecr.%s.amazonaws.com/%s:%s\\\",
-  \\\"essential\\\": true,
-  \\\"memory\\\": 500,
-  \\\"cpu\\\": 100,
-  \\\"environment\\\": [
-      {
-        \\\"name\\\": \\\"AUTH_DOMAIN\\\",
-        \\\"value\\\": \\\"%s\\\"
-      },
-      {
-        \\\"name\\\": \\\"DOCUSIGN_INTEGRATOR_KEY\\\",
-        \\\"value\\\": \\\"%s\\\"
-      },
-      {
-        \\\"name\\\": \\\"DOCUSIGN_NDA_TEMPLATE_ID\\\",
-        \\\"value\\\": \\\"%s\\\"
-      },
-      {
-        \\\"name\\\": \\\"DOCUSIGN_PASSWORD\\\",
-        \\\"value\\\": \\\"%s\\\"
-      },
-      {
-        \\\"name\\\": \\\"DOCUSIGN_RETURN_URL\\\",
-        \\\"value\\\": \\\"%s\\\"
-      },
-      {
-        \\\"name\\\": \\\"DOCUSIGN_SERVER_URL\\\",
-        \\\"value\\\": \\\"%s\\\"
-      },
-      {
-        \\\"name\\\": \\\"DOCUSIGN_USERNAME\\\",
-        \\\"value\\\": \\\"%s\\\"
-      },
-      {
-        \\\"name\\\": \\\"OLTP_PW\\\",
-        \\\"value\\\": \\\"%s\\\"
-      },
-      {
-        \\\"name\\\": \\\"OLTP_URL\\\",
-        \\\"value\\\": \\\"%s\\\"
-      },
-      {
-        \\\"name\\\": \\\"OLTP_USER\\\",
-        \\\"value\\\": \\\"%s\\\"
-      },
-      {
-        \\\"name\\\": \\\"SMTP_HOST\\\",
-        \\\"value\\\": \\\"%s\\\"
-      },
-      {
-        \\\"name\\\": \\\"SMTP_PASSWORD\\\",
-        \\\"value\\\": \\\"%s\\\"
-      },
-      {
-        \\\"name\\\": \\\"SMTP_SENDER\\\",
-        \\\"value\\\": \\\"%s\\\"
-      },
-      {
-        \\\"name\\\": \\\"SMTP_USERNAME\\\",
-        \\\"value\\\": \\\"%s\\\"
-      },
-      {
-        \\\"name\\\": \\\"TC_JWT_KEY\\\",
-        \\\"value\\\": \\\"%s\\\"
-      }
-    ],
-  \\\"portMappings\\\": [
-      {
-        \\\"hostPort\\\": 8080,
-        \\\"protocol\\\": \\\"tcp\\\",
-        \\\"containerPort\\\": 8080
-      },
-      {
-        \\\"hostPort\\\": 8081,
-        \\\"protocol\\\": \\\"tcp\\\",
-        \\\"containerPort\\\": 8081
-      }
-    ]
-  \\\"logConfiguration\\\": {
-    \\\"logDriver\\\": \\\"awslogs\\\",
-      \\\"options\\\": {
-            \\\"awslogs-group\\\": \\\"/ecs/%s\\\",
-            \\\"awslogs-region\\\": \\\"%s\\\",
-            \\\"awslogs-stream-prefix\\\": \\\"ecs\\\"
+{
+  "containerDefinitions": [
+    {
+    "name": "%s",
+    "image": "%s.dkr.ecr.%s.amazonaws.com/%s:%s",
+    "essential": true,
+    "memory": 500,
+    "cpu": 100,
+    "environment": [
+        {
+          "name": "AUTH_DOMAIN",
+          "value": "%s"
+        },
+        {
+          "name": "DOCUSIGN_INTEGRATOR_KEY",
+          "value": "%s"
+        },
+        {
+          "name": "DOCUSIGN_NDA_TEMPLATE_ID",
+          "value": "%s"
+        },
+        {
+          "name": "DOCUSIGN_PASSWORD",
+          "value": "%s"
+        },
+        {
+          "name": "DOCUSIGN_RETURN_URL",
+          "value": "%s"
+        },
+        {
+          "name": "DOCUSIGN_SERVER_URL",
+          "value": "%s"
+        },
+        {
+          "name": "DOCUSIGN_USERNAME",
+          "value": "%s"
+        },
+        {
+          "name": "OLTP_PW",
+          "value": "%s"
+        },
+        {
+          "name": "OLTP_URL",
+          "value": "%s"
+        },
+        {
+          "name": "OLTP_USER",
+          "value": "%s"
+        },
+        {
+          "name": "SMTP_HOST",
+          "value": "%s"
+        },
+        {
+          "name": "SMTP_PASSWORD",
+          "value": "%s"
+        },
+        {
+          "name": "SMTP_SENDER",
+          "value": "%s"
+        },
+        {
+          "name": "SMTP_USERNAME",
+          "value": "%s"
+        },
+        {
+          "name": "TC_JWT_KEY",
+          "value": "%s"
+        }
+      ],
+    "portMappings": [
+        {
+          "hostPort": 8080,
+          "protocol": "tcp",
+          "containerPort": 8080
+        },
+        {
+          "hostPort": 8081,
+          "protocol": "tcp",
+          "containerPort": 8081
+        }
+      ]
+    "logConfiguration": {
+      "logDriver": "awslogs",
+        "options": {
+              "awslogs-group": "/ecs/%s",
+              "awslogs-region": "%s",
+              "awslogs-stream-prefix": "ecs"
+        }
       }
     }
-  }
-]"
+  ],
+"family": "%s"
+}
 END
 )
-	echo $AWS_ECS_CONTAINER_NAME $AWS_ACCOUNT_ID $AWS_REGION $AWS_REPOSITORY $TAG "$AUTH_DOMAIN" $DOCUSIGN_INTEGRATOR_KEY $DOCUSIGN_NDA_TEMPLATE_ID $DOCUSIGN_PASSWORD $DOCUSIGN_RETURN_URL $DOCUSIGN_SERVER_URL $DOCUSIGN_USERNAME $OLTP_PW $OLTP_URL $OLTP_USER $SMTP_HOST $SMTP_PASSWORD $SMTP_SENDER $SMTP_USERNAME $TC_JWT_KEY $AWS_ECS_CLUSTER $AWS_REGION
-	echo $task_template
-	task_def=$(printf "$task_template" $AWS_ECS_CONTAINER_NAME $AWS_ACCOUNT_ID $AWS_REGION $AWS_REPOSITORY $TAG "$AUTH_DOMAIN" $DOCUSIGN_INTEGRATOR_KEY $DOCUSIGN_NDA_TEMPLATE_ID $DOCUSIGN_PASSWORD $DOCUSIGN_RETURN_URL $DOCUSIGN_SERVER_URL $DOCUSIGN_USERNAME $OLTP_PW $OLTP_URL $OLTP_USER $SMTP_HOST $SMTP_PASSWORD $SMTP_SENDER $SMTP_USERNAME $TC_JWT_KEY $AWS_ECS_CLUSTER $AWS_REGION)
+  echo $AWS_ECS_CONTAINER_NAME $AWS_ACCOUNT_ID $AWS_REGION $AWS_REPOSITORY $TAG "$AUTH_DOMAIN" $DOCUSIGN_INTEGRATOR_KEY $DOCUSIGN_NDA_TEMPLATE_ID $DOCUSIGN_PASSWORD $DOCUSIGN_RETURN_URL $DOCUSIGN_SERVER_URL $DOCUSIGN_USERNAME $OLTP_PW $OLTP_URL $OLTP_USER $SMTP_HOST $SMTP_PASSWORD $SMTP_SENDER $SMTP_USERNAME $TC_JWT_KEY $AWS_ECS_CLUSTER $AWS_REGION
+  echo $task_template
+  task_def=$(printf "$task_template" $AWS_ECS_CONTAINER_NAME $AWS_ACCOUNT_ID $AWS_REGION $AWS_REPOSITORY $TAG "$AUTH_DOMAIN" $DOCUSIGN_INTEGRATOR_KEY $DOCUSIGN_NDA_TEMPLATE_ID $DOCUSIGN_PASSWORD $DOCUSIGN_RETURN_URL $DOCUSIGN_SERVER_URL $DOCUSIGN_USERNAME $OLTP_PW $OLTP_URL $OLTP_USER $SMTP_HOST $SMTP_PASSWORD $SMTP_SENDER $SMTP_USERNAME $TC_JWT_KEY $AWS_ECS_CLUSTER $AWS_REGION $family)
   echo $task_def
 }
 
 
 register_definition() {
     echo "register definition"
-    echo aws ecs register-task-definition --region "$AWS_REGION"  --container-definitions=$task_def --family $family
-    if revision=$(aws ecs register-task-definition --region "$AWS_REGION"  --container-definitions=$task_def --family $family | $JQ '.taskDefinition.taskDefinitionArn'); then
+    echo aws ecs register-task-definition --cli-input-json file://config.json
+    if revision=$(aws ecs register-task-definition --cli-input-json file://config.json); then
         echo "Revision: $revision"
     else
         echo "Failed to register task definition"
@@ -183,7 +186,7 @@ register_definition() {
 
 check_service_status() {
         counter=0
-	sleep 60
+  sleep 60
         servicestatus=`aws ecs describe-services --service $AWS_ECS_SERVICE --cluster $AWS_ECS_CLUSTER | $JQ '.services[].events[0].message'`
         while [[ $servicestatus != *"steady state"* ]]
         do
