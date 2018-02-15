@@ -70,7 +70,7 @@ push_ecr_image() {
 make_task_def(){
 task_template=$(cat <<-END
 {  
-  "cpu": "1",
+  "cpu": "2",
   "containerDefinitions": [
     {
     "name": "%s",
