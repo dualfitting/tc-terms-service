@@ -70,6 +70,7 @@ push_ecr_image() {
 make_task_def(){
 task_template=$(cat <<-END
 {
+  "executionRoleArn":"arn:aws:iam::811668436784:user/sushil",
   "containerDefinitions": [
     {
     "name": "%s",
