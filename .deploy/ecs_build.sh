@@ -71,6 +71,7 @@ make_task_def(){
 task_template=$(cat <<-END
 {  
   "cpu": "500",
+  "memory": 2048,    
   "containerDefinitions": [
     {
     "name": "%s",
