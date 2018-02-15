@@ -69,8 +69,7 @@ push_ecr_image() {
 
 make_task_def(){
 task_template=$(cat <<-END
-{
-  
+{  
   "containerDefinitions": [
     {
     "name": "%s",
