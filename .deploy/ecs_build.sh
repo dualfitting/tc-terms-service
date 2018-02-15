@@ -72,6 +72,7 @@ task_template=$(cat <<-END
 {  
   "cpu": "500",
   "memory": "2048",    
+  "networkMode": "awsvpc", 
   "containerDefinitions": [
     {
     "name": "%s",
