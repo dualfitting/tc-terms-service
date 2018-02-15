@@ -171,8 +171,8 @@ END
 
 register_definition() {
     echo "register definition"
-    echo aws ecs register-task-definition --region "$AWS_REGION"  --container-definitions $task_def --family $family
-    if revision=$(aws ecs register-task-definition --region "$AWS_REGION"  --container-definitions $task_def --family $family | $JQ '.taskDefinition.taskDefinitionArn'); then
+    echo aws ecs register-task-definition --region "$AWS_REGION"  --container-definitions=$task_def --family $family
+    if revision=$(aws ecs register-task-definition --region "$AWS_REGION"  --container-definitions=$task_def --family $family | $JQ '.taskDefinition.taskDefinitionArn'); then
         echo "Revision: $revision"
     else
         echo "Failed to register task definition"
