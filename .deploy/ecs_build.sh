@@ -76,7 +76,7 @@ task_template=$(cat <<-END
     "name": "%s",
     "image": "%s.dkr.ecr.%s.amazonaws.com/%s:%s",
     "essential": true,
-    "memory": 500,    
+    "memory": 2048,    
     "environment": [
         {
           "name": "AUTH_DOMAIN",
