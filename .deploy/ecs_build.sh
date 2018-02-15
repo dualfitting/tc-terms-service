@@ -167,7 +167,7 @@ task_template=$(cat <<-END
 }
 END
 )
-  echo "-------- family param value:"
+  echo "-------- family param  value:"
   echo $family
   family_val= $family | $($JQ '.taskDefinition.taskDefinitionArn')
   echo $family_val
