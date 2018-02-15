@@ -69,97 +69,97 @@ push_ecr_image() {
 
 make_task_def(){
 task_template=$(cat <<-END
-	[
-		{
-		"name": "%s",
-		"image": "%s.dkr.ecr.%s.amazonaws.com/%s:%s",
-		"essential": true,
-		"memory": 500,
-		"cpu": 100,
-		"environment": [
-        {
-          "name": "AUTH_DOMAIN",
-          "value": "%s%"
-        },
-        {
-          "name": "DOCUSIGN_INTEGRATOR_KEY",
-          "value": "%s%"
-        },
-        {
-          "name": "DOCUSIGN_NDA_TEMPLATE_ID",
-          "value": "%s%"
-        },
-        {
-          "name": "DOCUSIGN_PASSWORD",
-          "value": "%s%"
-        },
-        {
-          "name": "DOCUSIGN_RETURN_URL",
-          "value": "%s%"
-        },
-        {
-          "name": "DOCUSIGN_SERVER_URL",
-          "value": "%s%"
-        },
-        {
-          "name": "DOCUSIGN_USERNAME",
-          "value": "%s%"
-        },
-        {
-          "name": "OLTP_PW",
-          "value": "%s%"
-        },
-        {
-          "name": "OLTP_URL",
-          "value": "%s%"
-        },
-        {
-          "name": "OLTP_USER",
-          "value": "%s%"
-        },
-        {
-          "name": "SMTP_HOST",
-          "value": "%s%"
-        },
-        {
-          "name": "SMTP_PASSWORD",
-          "value": "%s%"
-        },
-        {
-          "name": "SMTP_SENDER",
-          "value": "%s%"
-        },
-        {
-          "name": "SMTP_USERNAME",
-          "value": "%s%"
-        },
-        {
-          "name": "TC_JWT_KEY",
-          "value": "%s%"
-        }
-      ],
-		"portMappings": [
-        {
-          "hostPort": 8080,
-          "protocol": "tcp",
-          "containerPort": 8080
-        },
-        {
-          "hostPort": 8081,
-          "protocol": "tcp",
-          "containerPort": 8081
-        }
-      ]
-		"logConfiguration": {
-			"logDriver": "awslogs",
-				"options": {
-							"awslogs-group": "/ecs/%s",
-							"awslogs-region": "%s",
-							"awslogs-stream-prefix": "ecs"
-				}
-			}
-		}
-	]
+[
+  {
+  \"name\": \"%s\",
+  \"image\": \"%s.dkr.ecr.%s.amazonaws.com/%s:%s\",
+  \"essential\": true,
+  \"memory\": 500,
+  \"cpu\": 100,
+  \"environment\": [
+      {
+        \"name\": \"AUTH_DOMAIN\",
+        \"value\": \"%s%\"
+      },
+      {
+        \"name\": \"DOCUSIGN_INTEGRATOR_KEY\",
+        \"value\": \"%s%\"
+      },
+      {
+        \"name\": \"DOCUSIGN_NDA_TEMPLATE_ID\",
+        \"value\": \"%s%\"
+      },
+      {
+        \"name\": \"DOCUSIGN_PASSWORD\",
+        \"value\": \"%s%\"
+      },
+      {
+        \"name\": \"DOCUSIGN_RETURN_URL\",
+        \"value\": \"%s%\"
+      },
+      {
+        \"name\": \"DOCUSIGN_SERVER_URL\",
+        \"value\": \"%s%\"
+      },
+      {
+        \"name\": \"DOCUSIGN_USERNAME\",
+        \"value\": \"%s%\"
+      },
+      {
+        \"name\": \"OLTP_PW\",
+        \"value\": \"%s%\"
+      },
+      {
+        \"name\": \"OLTP_URL\",
+        \"value\": \"%s%\"
+      },
+      {
+        \"name\": \"OLTP_USER\",
+        \"value\": \"%s%\"
+      },
+      {
+        \"name\": \"SMTP_HOST\",
+        \"value\": \"%s%\"
+      },
+      {
+        \"name\": \"SMTP_PASSWORD\",
+        \"value\": \"%s%\"
+      },
+      {
+        \"name\": \"SMTP_SENDER\",
+        \"value\": \"%s%\"
+      },
+      {
+        \"name\": \"SMTP_USERNAME\",
+        \"value\": \"%s%\"
+      },
+      {
+        \"name\": \"TC_JWT_KEY\",
+        \"value\": \"%s%\"
+      }
+    ],
+  \"portMappings\": [
+      {
+        \"hostPort\": 8080,
+        \"protocol\": \"tcp\",
+        \"containerPort\": 8080
+      },
+      {
+        \"hostPort\": 8081,
+        \"protocol\": \"tcp\",
+        \"containerPort\": 8081
+      }
+    ]
+  \"logConfiguration\": {
+    \"logDriver\": \"awslogs\",
+      \"options\": {
+            \"awslogs-group\": \"/ecs/%s\",
+            \"awslogs-region\": \"%s\",
+            \"awslogs-stream-prefix\": \"ecs\"
+      }
+    }
+  }
+]
 END
 )
 	echo $AWS_ECS_CONTAINER_NAME $AWS_ACCOUNT_ID $AWS_REGION $AWS_REPOSITORY $TAG "$AUTH_DOMAIN" $DOCUSIGN_INTEGRATOR_KEY $DOCUSIGN_NDA_TEMPLATE_ID $DOCUSIGN_PASSWORD $DOCUSIGN_RETURN_URL $DOCUSIGN_SERVER_URL $DOCUSIGN_USERNAME $OLTP_PW $OLTP_URL $OLTP_USER $SMTP_HOST $SMTP_PASSWORD $SMTP_SENDER $SMTP_USERNAME $TC_JWT_KEY $AWS_ECS_CLUSTER $AWS_REGION
@@ -171,7 +171,7 @@ END
 
 register_definition() {  
     echo "register definition"
-    echo aws ecs register-task-definition --region "$AWS_REGION"  --container-definitions '$task_def' --family $family 
+    echo aws ecs register-task-definition --region "$AWS_REGION"  --container-definitions $task_def --family $family 
     if revision=$(aws ecs register-task-definition --region "$AWS_REGION"  --container-definitions "$task_def" --family $family | $JQ '.taskDefinition.taskDefinitionArn'); then
         echo "Revision: $revision"
     else
