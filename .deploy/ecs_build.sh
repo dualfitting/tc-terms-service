@@ -150,7 +150,7 @@ task_template=$(cat <<-END
           "protocol": "tcp",
           "containerPort": 8081
         }
-      ]
+      ],
     "logConfiguration": {
       "logDriver": "awslogs",
         "options": {
