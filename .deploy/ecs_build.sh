@@ -70,13 +70,13 @@ push_ecr_image() {
 make_task_def(){
 task_template=$(cat <<-END
 {  
+  "cpu": 100,
   "containerDefinitions": [
     {
     "name": "%s",
     "image": "%s.dkr.ecr.%s.amazonaws.com/%s:%s",
     "essential": true,
-    "memory": 500,
-    "cpu": 100,
+    "memory": 500,    
     "environment": [
         {
           "name": "AUTH_DOMAIN",
