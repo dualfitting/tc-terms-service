@@ -4,8 +4,8 @@ machine:
 
 dependencies:
   pre:
-    - sudo apt install jq 
-    - pip install awscli --upgrade
+    - sudo apt install jq     
+    - pip install awscli 
 
 test:
   override:
