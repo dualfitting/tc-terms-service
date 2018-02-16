@@ -69,7 +69,200 @@ push_ecr_image() {
 
 make_task_def(){
 task_template=$(cat <<-END
-{ \"cpu\": \"500\", \"memory\": \"2048\", \"containerDefinitions\": [ { \"name\": \"%s\", \"image\": \"%s.dkr.ecr.%s.amazonaws.com\/%s:%s\", \"essential\": true, \"environment\": [ { \"name\": \"AUTH_DOMAIN\", \"value\": \"%s\" }, { \"name\": \"DOCUSIGN_INTEGRATOR_KEY\", \"value\": \"%s\" }, { \"name\": \"DOCUSIGN_NDA_TEMPLATE_ID\", \"value\": \"%s\" }, { \"name\": \"DOCUSIGN_PASSWORD\", \"value\": \"%s\" }, { \"name\": \"DOCUSIGN_RETURN_URL\", \"value\": \"%s\" }, { \"name\": \"DOCUSIGN_SERVER_URL\", \"value\": \"%s\" }, { \"name\": \"DOCUSIGN_USERNAME\", \"value\": \"%s\" }, { \"name\": \"OLTP_PW\", \"value\": \"%s\" }, { \"name\": \"OLTP_URL\", \"value\": \"%s\" }, { \"name\": \"OLTP_USER\", \"value\": \"%s\" }, { \"name\": \"SMTP_HOST\", \"value\": \"%s\" }, { \"name\": \"SMTP_PASSWORD\", \"value\": \"%s\" }, { \"name\": \"SMTP_SENDER\", \"value\": \"%s\" }, { \"name\": \"SMTP_USERNAME\", \"value\": \"%s\" }, { \"name\": \"TC_JWT_KEY\", \"value\": \"%s\" } ], \"portMappings\": [ { \"hostPort\": 8080, \"protocol\": \"tcp\", \"containerPort\": 8080 }, { \"hostPort\": 8081, \"protocol\": \"tcp\", \"containerPort\": 8081 } ], \"logConfiguration\": { \"logDriver\": \"awslogs\", \"options\": { \"awslogs-group\": \"\/ecs\/%s\", \"awslogs-region\": \"%s\", \"awslogs-stream-prefix\": \"ecs\" } } } ], \"family\": \"%s\", \"requiresCompatibilities\": [\"FARGATE\"], \"networkMode\": \"awsvpc\" }
+{
+  "executionRoleArn": "arn:aws:iam::811668436784:role/ecsTaskExecutionRole",
+  "containerDefinitions": [
+    {
+      "dnsSearchDomains": null,
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/tc-terms-service",
+          "awslogs-region": "us-east-1",
+          "awslogs-stream-prefix": "ecs"
+        }
+      },
+      "entryPoint": null,
+      "portMappings": [
+        {
+          "hostPort": 8080,
+          "protocol": "tcp",
+          "containerPort": 8080
+        },
+        {
+          "hostPort": 8081,
+          "protocol": "tcp",
+          "containerPort": 8081
+        }
+      ],
+      "command": null,
+      "linuxParameters": null,
+      "cpu": 2,
+      "environment": [
+        {
+          "name": "AUTH_DOMAIN",
+          "value": "%s"
+        },
+        {
+          "name": "DOCUSIGN_INTEGRATOR_KEY",
+          "value": "%s"
+        },
+        {
+          "name": "DOCUSIGN_NDA_TEMPLATE_ID",
+          "value": "%s"
+        },
+        {
+          "name": "DOCUSIGN_PASSWORD",
+          "value": "%s"
+        },
+        {
+          "name": "DOCUSIGN_RETURN_URL",
+          "value": "%s"
+        },
+        {
+          "name": "DOCUSIGN_SERVER_URL",
+          "value": "%s"
+        },
+        {
+          "name": "DOCUSIGN_USERNAME",
+          "value": "%s"
+        },
+        {
+          "name": "OLTP_PW",
+          "value": "%s"
+        },
+        {
+          "name": "OLTP_URL",
+          "value": "%s"
+        },
+        {
+          "name": "OLTP_USER",
+          "value": "%s"
+        },
+        {
+          "name": "SMTP_HOST",
+          "value": "%s"
+        },
+        {
+          "name": "SMTP_PASSWORD",
+          "value": "%s"
+        },
+        {
+          "name": "SMTP_SENDER",
+          "value": "%s"
+        },
+        {
+          "name": "SMTP_USERNAME",
+          "value": "%s"
+        },
+        {
+          "name": "TC_JWT_KEY",
+          "value": "%s"
+        }
+      ],
+      "ulimits": null,
+      "dnsServers": null,
+      "mountPoints": [
+        
+      ],
+      "workingDirectory": null,
+      "dockerSecurityOptions": null,
+      "memory": null,
+      "memoryReservation": 512,
+      "volumesFrom": [
+        
+      ],
+      "image": "811668436784.dkr.ecr.us-east-1.amazonaws.com/tc-terms-service:334c8572250101bfe8d8f8c901cb49b7aae3dca0",
+      "disableNetworking": null,
+      "essential": true,
+      "links": null,
+      "hostname": null,
+      "extraHosts": null,
+      "user": null,
+      "readonlyRootFilesystem": null,
+      "dockerLabels": null,
+      "privileged": null,
+      "name": "tc-terms-service"
+    }
+  ],
+  "placementConstraints": [
+    
+  ],
+  "memory": "2048",
+  "taskRoleArn": "arn:aws:iam::811668436784:role/ecsTaskExecutionRole",
+  "compatibilities": [
+    "EC2",
+    "FARGATE"
+  ],
+  "taskDefinitionArn": "arn:aws:ecs:us-east-1:811668436784:task-definition/tc-terms-service:3",
+  "family": "tc-terms-service",
+  "requiresAttributes": [
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "ecs.capability.execution-role-ecr-pull"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "ecs.capability.task-eni"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "com.amazonaws.ecs.capability.ecr-auth"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "com.amazonaws.ecs.capability.task-iam-role"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "ecs.capability.execution-role-awslogs"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.21"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
+    }
+  ],
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
+  "networkMode": "awsvpc",
+  "cpu": "1024",
+  "revision": 4,
+  "status": "ACTIVE",
+  "volumes": [
+    
+  ]
+}
 END
 )
   echo "-------- family param  value:"
@@ -77,11 +270,11 @@ END
   family_val= $family | $($JQ '.taskDefinition.taskDefinitionArn')
   echo $family_val
   echo "-------- vars to inject into template:"
-  echo $AWS_ECS_CONTAINER_NAME $AWS_ACCOUNT_ID $AWS_REGION $AWS_REPOSITORY $TAG "$AUTH_DOMAIN" $DOCUSIGN_INTEGRATOR_KEY $DOCUSIGN_NDA_TEMPLATE_ID $DOCUSIGN_PASSWORD $DOCUSIGN_RETURN_URL $DOCUSIGN_SERVER_URL $DOCUSIGN_USERNAME $OLTP_PW $OLTP_URL $OLTP_USER $SMTP_HOST $SMTP_PASSWORD $SMTP_SENDER $SMTP_USERNAME $TC_JWT_KEY $AWS_ECS_CLUSTER $AWS_REGION $family_val
+  echo $AWS_ECS_CONTAINER_NAME "$AUTH_DOMAIN" $DOCUSIGN_INTEGRATOR_KEY $DOCUSIGN_NDA_TEMPLATE_ID $DOCUSIGN_PASSWORD $DOCUSIGN_RETURN_URL $DOCUSIGN_SERVER_URL $DOCUSIGN_USERNAME $OLTP_PW $OLTP_URL $OLTP_USER $SMTP_HOST $SMTP_PASSWORD $SMTP_SENDER $SMTP_USERNAME 
   echo "-------- template:"
   echo $task_template
 
-  task_def=$(printf "$task_template" $AWS_ECS_CONTAINER_NAME $AWS_ACCOUNT_ID $AWS_REGION $AWS_REPOSITORY $TAG "$AUTH_DOMAIN" $DOCUSIGN_INTEGRATOR_KEY $DOCUSIGN_NDA_TEMPLATE_ID $DOCUSIGN_PASSWORD $DOCUSIGN_RETURN_URL $DOCUSIGN_SERVER_URL $DOCUSIGN_USERNAME $OLTP_PW $OLTP_URL $OLTP_USER $SMTP_HOST $SMTP_PASSWORD $SMTP_SENDER $SMTP_USERNAME $TC_JWT_KEY $AWS_ECS_CLUSTER $AWS_REGION $family_val)
+  task_def=$(printf "$task_template" "$AUTH_DOMAIN" $DOCUSIGN_INTEGRATOR_KEY $DOCUSIGN_NDA_TEMPLATE_ID $DOCUSIGN_PASSWORD $DOCUSIGN_RETURN_URL $DOCUSIGN_SERVER_URL $DOCUSIGN_USERNAME $OLTP_PW $OLTP_URL $OLTP_USER $SMTP_HOST $SMTP_PASSWORD $SMTP_SENDER $SMTP_USERNAME )
   echo "-------- task def after injection:"
   echo $task_def
   echo $task_def > config.json
