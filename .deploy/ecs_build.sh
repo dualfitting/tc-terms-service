@@ -155,20 +155,12 @@ task_template=$(cat <<-END
           "name": "TC_JWT_KEY",
           "value": "%s"
         }
-      ],
-      
-      "mountPoints": [        
       ],      
-      "memoryReservation": 512,
-      "volumesFrom": [        
-      ],
+      "memoryReservation": 512,      
       "image": "811668436784.dkr.ecr.us-east-1.amazonaws.com/tc-terms-service:334c8572250101bfe8d8f8c901cb49b7aae3dca0",      
       "essential": true,      
       "name": "tc-terms-service"
     }
-  ],
-  "placementConstraints": [
-    
   ],
   "memory": "2048",
   "taskRoleArn": "arn:aws:iam::811668436784:role/ecsTaskExecutionRole",
@@ -177,45 +169,14 @@ task_template=$(cat <<-END
     "FARGATE"
   ],
   "taskDefinitionArn": "arn:aws:ecs:us-east-1:811668436784:task-definition/tc-terms-service:3",
-  "family": "tc-terms-service",
-  "requiresAttributes": [
-    {      
-      "name": "ecs.capability.execution-role-ecr-pull"
-    },
-    {     
-      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
-    },
-    {     
-      "name": "ecs.capability.task-eni"
-    },
-    {
-      "name": "com.amazonaws.ecs.capability.ecr-auth"
-    },
-    {
-      "name": "com.amazonaws.ecs.capability.task-iam-role"
-    },
-    {
-      "name": "ecs.capability.execution-role-awslogs"
-    },
-    {
-      "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
-    },
-    {
-      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.21"
-    },
-    {
-      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
-    }
-  ],
+  "family": "tc-terms-service",  
   "requiresCompatibilities": [
     "FARGATE"
   ],
   "networkMode": "awsvpc",
   "cpu": "1024",
   "revision": 4,
-  "status": "ACTIVE",
-  "volumes": [    
-  ]
+  "status": "ACTIVE"
 }
 END
 )
