@@ -163,20 +163,13 @@ task_template=$(cat <<-END
     }
   ],
   "memory": "2048",
-  "taskRoleArn": "arn:aws:iam::811668436784:role/ecsTaskExecutionRole",
-  "compatibilities": [
-    "EC2",
-    "FARGATE"
-  ],
-  "taskDefinitionArn": "arn:aws:ecs:us-east-1:811668436784:task-definition/tc-terms-service:3",
+  "taskRoleArn": "arn:aws:iam::811668436784:role/ecsTaskExecutionRole",  
   "family": "tc-terms-service",  
   "requiresCompatibilities": [
     "FARGATE"
   ],
   "networkMode": "awsvpc",
-  "cpu": "1024",
-  "revision": 4,
-  "status": "ACTIVE"
+  "cpu": "1024"
 }
 END
 )
