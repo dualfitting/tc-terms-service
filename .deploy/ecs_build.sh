@@ -72,8 +72,7 @@ task_template=$(cat <<-END
 {
   "executionRoleArn": "arn:aws:iam::811668436784:role/ecsTaskExecutionRole",
   "containerDefinitions": [
-    {
-      "dnsSearchDomains": null,
+    {      
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
@@ -81,8 +80,7 @@ task_template=$(cat <<-END
           "awslogs-region": "us-east-1",
           "awslogs-stream-prefix": "ecs"
         }
-      },
-      "entryPoint": null,
+      },     
       "portMappings": [
         {
           "hostPort": 8080,
@@ -94,9 +92,7 @@ task_template=$(cat <<-END
           "protocol": "tcp",
           "containerPort": 8081
         }
-      ],
-      "command": null,
-      "linuxParameters": null,
+      ],      
       "cpu": 2,
       "environment": [
         {
@@ -160,28 +156,14 @@ task_template=$(cat <<-END
           "value": "%s"
         }
       ],
-      "ulimits": null,
-      "dnsServers": null,
-      "mountPoints": [
-        
-      ],
-      "workingDirectory": null,
-      "dockerSecurityOptions": null,
-      "memory": null,
+      
+      "mountPoints": [        
+      ],      
       "memoryReservation": 512,
-      "volumesFrom": [
-        
+      "volumesFrom": [        
       ],
-      "image": "811668436784.dkr.ecr.us-east-1.amazonaws.com/tc-terms-service:334c8572250101bfe8d8f8c901cb49b7aae3dca0",
-      "disableNetworking": null,
-      "essential": true,
-      "links": null,
-      "hostname": null,
-      "extraHosts": null,
-      "user": null,
-      "readonlyRootFilesystem": null,
-      "dockerLabels": null,
-      "privileged": null,
+      "image": "811668436784.dkr.ecr.us-east-1.amazonaws.com/tc-terms-service:334c8572250101bfe8d8f8c901cb49b7aae3dca0",      
+      "essential": true,      
       "name": "tc-terms-service"
     }
   ],
@@ -197,58 +179,31 @@ task_template=$(cat <<-END
   "taskDefinitionArn": "arn:aws:ecs:us-east-1:811668436784:task-definition/tc-terms-service:3",
   "family": "tc-terms-service",
   "requiresAttributes": [
-    {
-      "targetId": null,
-      "targetType": null,
-      "value": null,
+    {      
       "name": "ecs.capability.execution-role-ecr-pull"
     },
-    {
-      "targetId": null,
-      "targetType": null,
-      "value": null,
+    {     
       "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
     },
-    {
-      "targetId": null,
-      "targetType": null,
-      "value": null,
+    {     
       "name": "ecs.capability.task-eni"
     },
     {
-      "targetId": null,
-      "targetType": null,
-      "value": null,
       "name": "com.amazonaws.ecs.capability.ecr-auth"
     },
     {
-      "targetId": null,
-      "targetType": null,
-      "value": null,
       "name": "com.amazonaws.ecs.capability.task-iam-role"
     },
     {
-      "targetId": null,
-      "targetType": null,
-      "value": null,
       "name": "ecs.capability.execution-role-awslogs"
     },
     {
-      "targetId": null,
-      "targetType": null,
-      "value": null,
       "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
     },
     {
-      "targetId": null,
-      "targetType": null,
-      "value": null,
       "name": "com.amazonaws.ecs.capability.docker-remote-api.1.21"
     },
     {
-      "targetId": null,
-      "targetType": null,
-      "value": null,
       "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
     }
   ],
@@ -259,8 +214,7 @@ task_template=$(cat <<-END
   "cpu": "1024",
   "revision": 4,
   "status": "ACTIVE",
-  "volumes": [
-    
+  "volumes": [    
   ]
 }
 END
@@ -284,7 +238,7 @@ END
 register_definition() {
     echo "register definition"
     echo aws ecs register-task-definition --cli-input-json file://config.json --family $family
-    if revision=$(aws ecs register-task-definition --execution-role-arn "arn:aws:iam::811668436784:role/EcsTaskExecutionRole" --task-role-arn "arn:aws:iam::811668436784:role/EcsTaskExecutionRole" --cli-input-json file://config.json --family $family | $JQ '.taskDefinition.taskDefinitionArn'); then
+    if revision=$(aws ecs register-task-definition --execution-role-arn "arn:aws:iam::811668436784:role/EcsTaskExecutionRole" --task-role-arn "arn:aws:iam::811668436784:role/EcsTaskExecutionRole" --container-definitions $task_def --family $family | $JQ '.taskDefinition.taskDefinitionArn'); then
         echo "Revision: $revision"
     else
         echo "Failed to register task definition"
