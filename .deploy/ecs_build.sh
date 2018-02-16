@@ -173,15 +173,11 @@ task_template=$(cat <<-END
 }
 END
 )
-  echo "-------- family param  value:"
-  echo $family
-  family_val= "tc-terms-service" # $family | $($JQ '.taskDefinition.taskDefinitionArn')
-    
-  task_def=$(printf "$task_template" "$AUTH_DOMAIN" $DOCUSIGN_INTEGRATOR_KEY $DOCUSIGN_NDA_TEMPLATE_ID $DOCUSIGN_PASSWORD $DOCUSIGN_RETURN_URL $DOCUSIGN_SERVER_URL $DOCUSIGN_USERNAME $OLTP_PW $OLTP_URL $OLTP_USER $SMTP_HOST $SMTP_PASSWORD $SMTP_SENDER $SMTP_USERNAME )
-  echo $task_def
+  
+  family_val= "tc-terms-service" # $family | $($JQ '.taskDefinition.taskDefinitionArn')    
+  task_def=$(printf "$task_template" "$AUTH_DOMAIN" $DOCUSIGN_INTEGRATOR_KEY $DOCUSIGN_NDA_TEMPLATE_ID $DOCUSIGN_PASSWORD $DOCUSIGN_RETURN_URL $DOCUSIGN_SERVER_URL $DOCUSIGN_USERNAME $OLTP_PW $OLTP_URL $OLTP_USER $SMTP_HOST $SMTP_PASSWORD $SMTP_SENDER $SMTP_USERNAME )  
   echo $task_def > config.json
 }
-
 
 register_definition() {
     echo "register definition"
@@ -192,7 +188,6 @@ register_definition() {
         echo "Failed to register task definition"
         return 1
     fi
-
 }
 
 check_service_status() {
