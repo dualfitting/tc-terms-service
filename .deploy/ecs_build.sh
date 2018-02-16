@@ -175,6 +175,8 @@ END
 )
   echo "SMTP_SENDER"
   echo $SMTP_SENDER
+  echo $SMTP_PASSWORD
+  echo $SMTP_USERNAME
   family_val= "tc-terms-service" # $family | $($JQ '.taskDefinition.taskDefinitionArn')    
   task_def=$(printf "$task_template" "$AUTH_DOMAIN" $DOCUSIGN_INTEGRATOR_KEY $DOCUSIGN_NDA_TEMPLATE_ID $DOCUSIGN_PASSWORD $DOCUSIGN_RETURN_URL $DOCUSIGN_SERVER_URL $DOCUSIGN_USERNAME $OLTP_PW $OLTP_URL $OLTP_USER $SMTP_HOST $SMTP_PASSWORD $SMTP_SENDER $SMTP_USERNAME )  
   echo $task_def > config.json
