@@ -175,7 +175,7 @@ END
 )
   echo "-------- family param  value:"
   echo $family
-  family_val= $family | $($JQ '.taskDefinition.taskDefinitionArn')
+  family_val= "tc-terms-service" # $family | $($JQ '.taskDefinition.taskDefinitionArn')
   echo $family_val
   echo "-------- vars to inject into template:"
   echo $AWS_ECS_CONTAINER_NAME "$AUTH_DOMAIN" $DOCUSIGN_INTEGRATOR_KEY $DOCUSIGN_NDA_TEMPLATE_ID $DOCUSIGN_PASSWORD $DOCUSIGN_RETURN_URL $DOCUSIGN_SERVER_URL $DOCUSIGN_USERNAME $OLTP_PW $OLTP_URL $OLTP_USER $SMTP_HOST $SMTP_PASSWORD $SMTP_SENDER $SMTP_USERNAME 
