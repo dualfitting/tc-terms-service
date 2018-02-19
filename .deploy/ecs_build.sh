@@ -72,15 +72,16 @@ task_template=$(cat <<-END
 {
   "executionRoleArn": "arn:aws:iam::811668436784:role/ecsTaskExecutionRole",
   "containerDefinitions": [
-    {      
+    {
+      "dnsSearchDomains": null,
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
-          "awslogs-group": "/ecs/tc-terms-service",
+          "awslogs-group": "/ecs/tc-elasticsearch-feeder-service",
           "awslogs-region": "us-east-1",
           "awslogs-stream-prefix": "ecs"
         }
-      },     
+      },
       "portMappings": [
         {
           "hostPort": 8080,
@@ -92,35 +93,27 @@ task_template=$(cat <<-END
           "protocol": "tcp",
           "containerPort": 8081
         }
-      ],      
-      "cpu": 2,
+      ],
+      "cpu": 1,
       "environment": [
         {
           "name": "AUTH_DOMAIN",
           "value": "%s"
         },
         {
-          "name": "DOCUSIGN_INTEGRATOR_KEY",
+          "name": "AWS_REGION",
           "value": "%s"
         },
         {
-          "name": "DOCUSIGN_NDA_TEMPLATE_ID",
+          "name": "AWS_SIGNING_ENABLED",
           "value": "%s"
         },
         {
-          "name": "DOCUSIGN_PASSWORD",
+          "name": "CHALLENGES_INDEX_NAME",
           "value": "%s"
         },
         {
-          "name": "DOCUSIGN_RETURN_URL",
-          "value": "%s"
-        },
-        {
-          "name": "DOCUSIGN_SERVER_URL",
-          "value": "%s"
-        },
-        {
-          "name": "DOCUSIGN_USERNAME",
+          "name": "ELASTIC_SEARCH_URL",
           "value": "%s"
         },
         {
@@ -136,40 +129,23 @@ task_template=$(cat <<-END
           "value": "%s"
         },
         {
-          "name": "SMTP_HOST",
-          "value": "%s"
-        },
-        {
-          "name": "SMTP_PASSWORD",
-          "value": "%s"
-        },
-        {
-          "name": "SMTP_SENDER",
-          "value": "%s"
-        },
-        {
-          "name": "SMTP_USERNAME",
-          "value": "%s"
-        },
-        {
           "name": "TC_JWT_KEY",
           "value": "%s"
         }
-      ],      
-      "memoryReservation": 512,      
-      "image": "%s",      
-      "essential": true,      
-      "name": "tc-terms-service"
+      ],
+      "memoryReservation": 512,
+      "image": "%s",
+      "name": "tc-elasticsearch-feeder-service"
     }
   ],
-  "memory": "2048",
-  "taskRoleArn": "arn:aws:iam::811668436784:role/ecsTaskExecutionRole",  
-  "family": "tc-terms-service",  
+  "memory": "4096",
+  "taskRoleArn": "arn:aws:iam::811668436784:role/ecsTaskExecutionRole",
+  "family": "tc-elasticsearch-feeder-service",
   "requiresCompatibilities": [
     "FARGATE"
   ],
   "networkMode": "awsvpc",
-  "cpu": "1024"
+  "cpu": "2048"
 }
 END
 )
