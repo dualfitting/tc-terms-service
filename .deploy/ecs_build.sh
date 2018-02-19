@@ -157,7 +157,7 @@ task_template=$(cat <<-END
         }
       ],      
       "memoryReservation": 512,      
-      "image": "811668436784.dkr.ecr.us-east-1.amazonaws.com/tc-terms-service:334c8572250101bfe8d8f8c901cb49b7aae3dca0",      
+      "image": "%s",      
       "essential": true,      
       "name": "tc-terms-service"
     }
@@ -174,7 +174,7 @@ task_template=$(cat <<-END
 END
 )
   family_val= "tc-terms-service" # $family | $($JQ '.taskDefinition.taskDefinitionArn')    
-  task_def=$(printf "$task_template" "$AUTH_DOMAIN" $DOCUSIGN_INTEGRATOR_KEY $DOCUSIGN_NDA_TEMPLATE_ID $DOCUSIGN_PASSWORD $DOCUSIGN_RETURN_URL $DOCUSIGN_SERVER_URL $DOCUSIGN_USERNAME $OLTP_PW $OLTP_URL $OLTP_USER $SMTP_HOST "$SMTP_PASSWORD" $SMTP_SENDER "$SMTP_USERNAME" $TC_JWT_KEY)  
+  task_def=$(printf "$task_template" "$AUTH_DOMAIN" $DOCUSIGN_INTEGRATOR_KEY $DOCUSIGN_NDA_TEMPLATE_ID $DOCUSIGN_PASSWORD $DOCUSIGN_RETURN_URL $DOCUSIGN_SERVER_URL $DOCUSIGN_USERNAME $OLTP_PW $OLTP_URL $OLTP_USER $SMTP_HOST "$SMTP_PASSWORD" $SMTP_SENDER "$SMTP_USERNAME" $TC_JWT_KEY $TAG)  
   echo $task_def > config.json
 }
 
