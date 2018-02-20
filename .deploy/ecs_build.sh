@@ -73,7 +73,6 @@ task_template=$(cat <<-END
   "executionRoleArn": "arn:aws:iam::811668436784:role/ecsTaskExecutionRole",
   "containerDefinitions": [
     {
-      "dnsSearchDomains": null,
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
@@ -197,7 +196,7 @@ deploy_cluster() {
         return 1
     fi
 
-    echo "Update service intialised successfully for deployment"
+    echo "Update service intialised successfully for deployment "
     return 0
 }
 
