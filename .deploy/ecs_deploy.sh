@@ -6,6 +6,7 @@ if [[ -z "$ENV" ]] ; then
   exit
 fi
 
+#Compute ENV variables from CC
 echo "$ENV before case conversion"
 
 AWS_REGION=$(eval "echo \$${ENV}_AWS_REGION")
@@ -32,15 +33,13 @@ echo "Copying deployment files to docker folder"
 cp $WORKSPACE/target/terms-microservice*.jar terms-microservice.jar
 cp $WORKSPACE/src/main/resources/terms-service.yaml terms-service.yaml
 cp $WORKSPACE/.deploy/ecs_task_template.json ecs_task_template.json
+
 echo "Logging into docker"
 echo "############################"
 docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASSWD
 
-#Converting environment varibale as lower case for build purpose
-#ENV=`echo "$ENV" | tr '[:upper:]' '[:lower:]'`
-#echo "$ENV after case conversion"
-
 configure_aws_cli() {
+  echo "Configuring AWS CLI."
   aws --version
   aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
   aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
@@ -50,27 +49,35 @@ configure_aws_cli() {
 }
 
 build_ecr_image() {
+  echo "Building docker image..."
   eval $(aws ecr get-login  --region $AWS_REGION)
   TAG=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$AWS_REPOSITORY:$CIRCLE_SHA1
   docker build -t $TAG .
+  echo "Docker image built with the TAG :"
+  echo $TAG
+
 }
 
 push_ecr_image() {
-  echo "Pushing Docker Image...."
+  echo "Pushing docker image to ECR..."
   eval $(aws ecr get-login --region $AWS_REGION --no-include-email)
   echo $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$AWS_REPOSITORY:$TAG
   docker push $TAG
-  echo "Docker Image published."
+  echo "Docker image published to ECR"
 }
 
 make_task_def(){ 
+  echo "Creating ECS task definition..."  
   task_template=`cat ecs_task_template.json`
   task_def=$(printf "$task_template" "$AUTH_DOMAIN" $DOCUSIGN_INTEGRATOR_KEY $DOCUSIGN_NDA_TEMPLATE_ID $DOCUSIGN_PASSWORD $DOCUSIGN_RETURN_URL $DOCUSIGN_SERVER_URL $DOCUSIGN_USERNAME $OLTP_PW $OLTP_URL $OLTP_USER $SMTP_HOST "$SMTP_PASSWORD" $SMTP_SENDER "$SMTP_USERNAME" $TC_JWT_KEY $TAG)  
   echo $task_def > task_def.json
+  echo "ECS task definition is created : "
+  echo $task_def
+
 }
 
 register_definition() {
-    echo "register definition"
+    echo "Registering ECS task definition..."
     echo aws ecs register-task-definition --cli-input-json file://task_def.json --family $family
     if revision=$(aws ecs register-task-definition  --cli-input-json file://task_def.json --family $family | $JQ '.taskDefinition.taskDefinitionArn'); then
         echo "Revision: $revision"
@@ -84,6 +91,7 @@ deploy_cluster() {
     make_task_def
     register_definition
     echo $revision
+    echo "Updating ECS Service..."
     update_result=$(aws ecs update-service --cluster $AWS_ECS_CLUSTER --service $AWS_ECS_SERVICE --task-definition $revision )
     result=$(echo $update_result | $JQ '.service.taskDefinition' )
     echo $result
