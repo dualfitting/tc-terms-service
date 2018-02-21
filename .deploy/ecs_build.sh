@@ -1,6 +1,7 @@
 #!/bin/bash
 . ./circleci_vars.sh $1
-
+echo "TAGGGG"
+echo $TAG
 # Define script variables
 DEPLOY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 WORKSPACE=$PWD
