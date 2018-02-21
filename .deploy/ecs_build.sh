@@ -52,9 +52,6 @@ configure_aws_cli() {
 
 build_ecr_image() {
   eval $(aws ecr get-login  --region $AWS_REGION)
-  #eval $(aws ecr get-login)
-  # Builds Docker image of the app.
-  #$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$AWS_REPOSITORY:$CIRCLE_SHA1
   TAG=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$AWS_REPOSITORY:$CIRCLE_SHA1
   docker build -t $TAG .
 }
@@ -67,126 +64,16 @@ push_ecr_image() {
   echo "Docker Image published."
 }
 
-make_task_def(){
-task_template=$(cat <<-END
-{
-  "executionRoleArn": "arn:aws:iam::811668436784:role/ecsTaskExecutionRole",
-  "containerDefinitions": [
-    {      
-      "logConfiguration": {
-        "logDriver": "awslogs",
-        "options": {
-          "awslogs-group": "/ecs/tc-terms-service",
-          "awslogs-region": "us-east-1",
-          "awslogs-stream-prefix": "ecs"
-        }
-      },     
-      "portMappings": [
-        {
-          "hostPort": 8080,
-          "protocol": "tcp",
-          "containerPort": 8080
-        },
-        {
-          "hostPort": 8081,
-          "protocol": "tcp",
-          "containerPort": 8081
-        }
-      ],      
-      "cpu": 2,
-      "environment": [
-        {
-          "name": "AUTH_DOMAIN",
-          "value": "%s"
-        },
-        {
-          "name": "DOCUSIGN_INTEGRATOR_KEY",
-          "value": "%s"
-        },
-        {
-          "name": "DOCUSIGN_NDA_TEMPLATE_ID",
-          "value": "%s"
-        },
-        {
-          "name": "DOCUSIGN_PASSWORD",
-          "value": "%s"
-        },
-        {
-          "name": "DOCUSIGN_RETURN_URL",
-          "value": "%s"
-        },
-        {
-          "name": "DOCUSIGN_SERVER_URL",
-          "value": "%s"
-        },
-        {
-          "name": "DOCUSIGN_USERNAME",
-          "value": "%s"
-        },
-        {
-          "name": "OLTP_PW",
-          "value": "%s"
-        },
-        {
-          "name": "OLTP_URL",
-          "value": "%s"
-        },
-        {
-          "name": "OLTP_USER",
-          "value": "%s"
-        },
-        {
-          "name": "SMTP_HOST",
-          "value": "%s"
-        },
-        {
-          "name": "SMTP_PASSWORD",
-          "value": "%s"
-        },
-        {
-          "name": "SMTP_SENDER",
-          "value": "%s"
-        },
-        {
-          "name": "SMTP_USERNAME",
-          "value": "%s"
-        },
-        {
-          "name": "TC_JWT_KEY",
-          "value": "%s"
-        }
-      ],      
-      "memoryReservation": 512,      
-      "image": "%s",      
-      "essential": true,      
-      "name": "tc-terms-service"
-    }
-  ],
-  "memory": "2048",
-  "taskRoleArn": "arn:aws:iam::811668436784:role/ecsTaskExecutionRole",  
-  "family": "tc-terms-service",  
-  "requiresCompatibilities": [
-    "FARGATE"
-  ],
-  "networkMode": "awsvpc",
-  "cpu": "1024"
-}
-END
-)
-  echo $PWD
-  
+make_task_def(){ 
   task_template=`cat ecs_task_template.json`
   task_def=$(printf "$task_template" "$AUTH_DOMAIN" $DOCUSIGN_INTEGRATOR_KEY $DOCUSIGN_NDA_TEMPLATE_ID $DOCUSIGN_PASSWORD $DOCUSIGN_RETURN_URL $DOCUSIGN_SERVER_URL $DOCUSIGN_USERNAME $OLTP_PW $OLTP_URL $OLTP_USER $SMTP_HOST "$SMTP_PASSWORD" $SMTP_SENDER "$SMTP_USERNAME" $TC_JWT_KEY $TAG)  
-  echo $task_def > config.json
-
-  #task_def=$(printf "$task_template" "$AUTH_DOMAIN" $DOCUSIGN_INTEGRATOR_KEY $DOCUSIGN_NDA_TEMPLATE_ID $DOCUSIGN_PASSWORD $DOCUSIGN_RETURN_URL $DOCUSIGN_SERVER_URL $DOCUSIGN_USERNAME $OLTP_PW $OLTP_URL $OLTP_USER $SMTP_HOST "$SMTP_PASSWORD" $SMTP_SENDER "$SMTP_USERNAME" $TC_JWT_KEY $TAG)  
-  #echo $task_def > config.json
+  echo $task_def > task_def.json
 }
 
 register_definition() {
     echo "register definition"
-    echo aws ecs register-task-definition --cli-input-json file://config.json --family $family
-    if revision=$(aws ecs register-task-definition  --cli-input-json file://config.json --family $family | $JQ '.taskDefinition.taskDefinitionArn'); then
+    echo aws ecs register-task-definition --cli-input-json file://task_def.json --family $family
+    if revision=$(aws ecs register-task-definition  --cli-input-json file://task_def.json --family $family | $JQ '.taskDefinition.taskDefinitionArn'); then
         echo "Revision: $revision"
     else
         echo "Failed to register task definition"
@@ -235,5 +122,5 @@ configure_aws_cli
 build_ecr_image
 push_ecr_image
 deploy_cluster
-#check_service_status
+check_service_status
 exit $?
