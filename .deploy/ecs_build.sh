@@ -1,26 +1,5 @@
 #!/bin/bash
-ENV=$1
-if [[ -z "$ENV" ]] ; then
-  echo "Environment should be set on startup with one of the below values"
-  echo "ENV must be one of - DEV, QA, PROD or LOCAL"
-  exit
-fi
-
-echo "$ENV before case conversion"
-
-AWS_REGION=$(eval "echo \$${ENV}_AWS_REGION")
-AWS_ACCESS_KEY_ID=$(eval "echo \$${ENV}_AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY=$(eval "echo \$${ENV}_AWS_SECRET_ACCESS_KEY")
-AWS_ACCOUNT_ID=$(eval "echo \$${ENV}_AWS_ACCOUNT_ID")
-AWS_REPOSITORY=$(eval "echo \$${ENV}_AWS_REPOSITORY")
-AWS_ECS_CLUSTER=$(eval "echo \$${ENV}_AWS_ECS_CLUSTER")
-AWS_ECS_SERVICE=$(eval "echo \$${ENV}_AWS_ECS_SERVICE")
-family=$(eval "echo \$${ENV}_AWS_ECS_TASK_FAMILY")
-AWS_ECS_CONTAINER_NAME=$(eval "echo \$${ENV}_AWS_ECS_CONTAINER_NAME")
-AUTH_DOMAIN=$(eval "echo \$${ENV}_AUTH_DOMAIN")
-#APP_NAME
-
-JQ="jq --raw-output --exit-status"
+. ./circleci_vars.sh $1
 
 # Define script variables
 DEPLOY_DIR="$( cd "$( dirname "$0" )" && pwd )"
@@ -52,14 +31,13 @@ configure_aws_cli() {
 
 build_ecr_image() {
   eval $(aws ecr get-login  --region $AWS_REGION)
-  TAG=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$AWS_REPOSITORY:$CIRCLE_SHA1
   docker build -t $TAG .
 }
 
 push_ecr_image() {
   echo "Pushing Docker Image...."
   eval $(aws ecr get-login --region $AWS_REGION --no-include-email)
-  echo $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$AWS_REPOSITORY:$TAG
+  echo $TAG
   docker push $TAG
   echo "Docker Image published."
 }
@@ -81,25 +59,6 @@ register_definition() {
     fi
 }
 
-check_service_status() {
-        counter=0
-  sleep 60
-        servicestatus=`aws ecs describe-services --service $AWS_ECS_SERVICE --cluster $AWS_ECS_CLUSTER | $JQ '.services[].events[0].message'`
-        while [[ $servicestatus != *"steady state"* ]]
-        do
-           echo "Current event message : $servicestatus"
-           echo "Waiting for 30 sec to check the service status...."
-           sleep 30
-           servicestatus=`aws ecs describe-services --service $AWS_ECS_SERVICE --cluster $AWS_ECS_CLUSTER | $JQ '.services[].events[0].message'`
-           counter=`expr $counter + 1`
-           if [[ $counter -gt $COUNTER_LIMIT ]] ; then
-                echo "Service does not reach steady state with in 10 minutes. Please check"
-                exit 1
-           fi
-        done
-        echo "$servicestatus"
-}
-
 deploy_cluster() {
 
     make_task_def
@@ -117,10 +76,8 @@ deploy_cluster() {
     return 0
 }
 
-
 configure_aws_cli
 build_ecr_image
 push_ecr_image
 deploy_cluster
-check_service_status
 exit $?
