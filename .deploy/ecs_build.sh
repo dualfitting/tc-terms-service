@@ -173,8 +173,7 @@ task_template=$(cat <<-END
 }
 END
 )
-  DIR
-  LS
+  PWD
   task_template=`cat file://.deploy/ecs_task_template.json`
   task_def=$(printf "$task_template" "$AUTH_DOMAIN" $DOCUSIGN_INTEGRATOR_KEY $DOCUSIGN_NDA_TEMPLATE_ID $DOCUSIGN_PASSWORD $DOCUSIGN_RETURN_URL $DOCUSIGN_SERVER_URL $DOCUSIGN_USERNAME $OLTP_PW $OLTP_URL $OLTP_USER $SMTP_HOST "$SMTP_PASSWORD" $SMTP_SENDER "$SMTP_USERNAME" $TC_JWT_KEY $TAG)  
   echo $task_def > config.json
