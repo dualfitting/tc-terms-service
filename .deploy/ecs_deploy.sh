@@ -32,6 +32,8 @@ cd $DEPLOY_DIR/docker
 echo "Copying deployment files to docker folder"
 cp $WORKSPACE/target/terms-microservice*.jar terms-microservice.jar
 cp $WORKSPACE/src/main/resources/terms-service.yaml terms-service.yaml
+
+#Copying ECS task template with place holder values 
 cp $WORKSPACE/.deploy/ecs_task_template.json ecs_task_template.json
 
 echo "Logging into docker"
@@ -69,7 +71,7 @@ push_ecr_image() {
 make_task_def(){ 
   echo "Creating ECS task definition..."  
   task_template=`cat ecs_task_template.json`
-  task_def=$(printf "$task_template" "$AUTH_DOMAIN" $DOCUSIGN_INTEGRATOR_KEY $DOCUSIGN_NDA_TEMPLATE_ID $DOCUSIGN_PASSWORD $DOCUSIGN_RETURN_URL $DOCUSIGN_SERVER_URL $DOCUSIGN_USERNAME $OLTP_PW $OLTP_URL $OLTP_USER $SMTP_HOST "$SMTP_PASSWORD" $SMTP_SENDER "$SMTP_USERNAME" $TC_JWT_KEY $TAG)  
+  task_def=$(printf "$task_template" AWS_ACCOUNT_ID "$AUTH_DOMAIN" $DOCUSIGN_INTEGRATOR_KEY $DOCUSIGN_NDA_TEMPLATE_ID $DOCUSIGN_PASSWORD $DOCUSIGN_RETURN_URL $DOCUSIGN_SERVER_URL $DOCUSIGN_USERNAME $OLTP_PW $OLTP_URL $OLTP_USER $SMTP_HOST "$SMTP_PASSWORD" $SMTP_SENDER "$SMTP_USERNAME" $TC_JWT_KEY $TAG)  
   echo $task_def > task_def.json
   echo "ECS task definition is created : "
   echo $task_def
