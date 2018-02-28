@@ -92,7 +92,7 @@
       }
     ],
     "memory": "2048",
-    "taskRoleArn": "arn:aws:iam::811668436784:role/ecsTaskExecutionRole",  
+    "taskRoleArn": "arn:aws:iam::%s:role/ecsTaskExecutionRole",  
     "family": "tc-terms-service",  
     "requiresCompatibilities": [
       "FARGATE"
