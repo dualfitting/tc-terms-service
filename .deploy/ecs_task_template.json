@@ -88,12 +88,12 @@
         "memoryReservation": 512,      
         "image": "%s",      
         "essential": true,      
-        "name": "tc-terms-service"
+        "name": "%s"
       }
     ],
     "memory": "2048",
     "taskRoleArn": "arn:aws:iam::%s:role/ecsTaskExecutionRole",  
-    "family": "tc-terms-service",  
+    "family": "%s",  
     "requiresCompatibilities": [
       "FARGATE"
     ],
