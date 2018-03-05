@@ -1,0 +1,32 @@
+version: 2
+jobs:
+  "build-dev":
+    docker:
+      - image: docker:17.06.1-ce-git
+    steps:
+      # Initialization.
+      - checkout
+      - setup_remote_docker
+       # Deployment.
+      - run:
+          name: Installing AWS client
+          command: |
+            sudo apt install jq     
+            sudo pip install --upgrade pip
+            pip install awscli
+      - run: 
+          name: Building JAR
+          command: |
+            mvn clean compile package 
+    - deploy:
+        command: ./ecs_deploy.sh DEV $CIRCLE_SHA1
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      # Development builds are executed on "develop" branch only.
+      - "build-dev":
+          filters:
+            branches:
+              only: "cc2-upgrade"

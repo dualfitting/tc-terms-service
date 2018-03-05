@@ -14,7 +14,7 @@ test:
 
 deployment:
   development:
-    branch: ["dev"]
+    branch: ["cc2-upgrade"]
     commands:      
       - .deploy/ecs_deploy.sh DEV
   production:
