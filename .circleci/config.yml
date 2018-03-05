@@ -44,4 +44,4 @@ jobs:
     - store_artifacts:
         path: /tmp/circleci-test-results
     - deploy:
-        command: ./ecs-deploy.sh DEV
+        command: ./ecs_deploy.sh DEV
