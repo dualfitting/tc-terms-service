@@ -109,5 +109,5 @@ deploy_cluster() {
 configure_aws_cli
 build_ecr_image
 push_ecr_image
-#deploy_cluster
+deploy_cluster
 exit $?
