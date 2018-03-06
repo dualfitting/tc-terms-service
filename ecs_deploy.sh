@@ -38,7 +38,7 @@ cp $WORKSPACE/ecs_task_template.json ecs_task_template.json
 
 echo "Logging into docker"
 echo "############################"
-docker login -u $DOCKER_USER -p $DOCKER_PASSWD
+docker login -u $DOCKER_USER --password-stdin $DOCKER_PASSWD
 
 configure_aws_cli() {
   echo "Configuring AWS CLI."
