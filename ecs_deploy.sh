@@ -36,9 +36,9 @@ cp $WORKSPACE/src/main/resources/terms-service.yaml terms-service.yaml
 #Copying ECS task template with place holder values 
 cp $WORKSPACE/ecs_task_template.json ecs_task_template.json
 
-echo "Logging into  docker"
+echo "Logging into docker"
 echo "############################"
-docker login -u $DOCKER_USER --password-stdin $DOCKER_PASSWD
+docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASSWD
 
 configure_aws_cli() {
   echo "Configuring AWS CLI."
@@ -52,17 +52,18 @@ configure_aws_cli() {
 
 build_ecr_image() {
   echo "Building docker image..."
-  eval $(aws ecr get-login --no-include-email  --region $AWS_REGION)
+  eval $(aws ecr get-login  --region $AWS_REGION)
   TAG=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$AWS_REPOSITORY:$CIRCLE_SHA1
   docker build -t $TAG .
   echo "Docker image built with the TAG :"
   echo $TAG
+
 }
 
 push_ecr_image() {
   echo "Pushing docker image to ECR..."
   eval $(aws ecr get-login --region $AWS_REGION --no-include-email)
-  echo $TAG
+  echo $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$AWS_REPOSITORY:$TAG
   docker push $TAG
   echo "Docker image published to ECR"
 }
