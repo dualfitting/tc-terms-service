@@ -57,7 +57,6 @@ build_ecr_image() {
   docker build -t $TAG .
   echo "Docker image built with the TAG :"
   echo $TAG
-
 }
 
 push_ecr_image() {
