@@ -36,6 +36,10 @@ cp $WORKSPACE/src/main/resources/terms-service.yaml terms-service.yaml
 #Copying ECS task template with place holder values 
 cp $WORKSPACE/ecs_task_template.json ecs_task_template.json
 
+echo "Logging into docker"
+echo "############################"
+docker login -u $DOCKER_USER -p $DOCKER_PASSWD
+
 configure_aws_cli() {
   echo "Configuring AWS CLI."
   aws --version
