@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/topcoder-platform/tc-terms-service
     docker:
-    - image: docker:17.06.1-ce-git      
+    - image: docker
     steps:
     - checkout    
     - restore_cache:
