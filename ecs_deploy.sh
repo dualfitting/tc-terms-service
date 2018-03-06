@@ -63,6 +63,7 @@ build_ecr_image() {
 
 push_ecr_image() {
   echo "Pushing docker image to ECR..."
+  docker login -u $DOCKER_USER -p $DOCKER_PASSWD
   eval $(aws ecr get-login --region $AWS_REGION)
   echo $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$AWS_REPOSITORY:$TAG
   docker push $TAG
