@@ -27,7 +27,7 @@ JQ="jq --raw-output --exit-status"
 DEPLOY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 WORKSPACE=$PWD
 
-cd $DEPLOY_DIR/docker
+#cd $DEPLOY_DIR/docker
 
 echo "Copying deployment files to docker folder"
 cp $WORKSPACE/target/terms-microservice*.jar terms-microservice.jar
