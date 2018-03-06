@@ -62,7 +62,7 @@ build_ecr_image() {
 
 push_ecr_image() {
   echo "Pushing docker image to ECR..."
-  eval $(aws ecr get-login --region $AWS_REGION --no-include-email)
+  eval $(aws ecr get-login --region $AWS_REGION)
   echo $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$AWS_REPOSITORY:$TAG
   docker push $TAG
   echo "Docker image published to ECR"
