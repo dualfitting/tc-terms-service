@@ -63,7 +63,7 @@ push_ecr_image() {
   echo "Pushing docker image to ECR..."
   eval $(aws ecr get-login --region $AWS_REGION --no-include-email)
   echo $TAG
-  docker push $TAG
+  docker push $TAG:CIRCLE_SHA1
   echo "Docker image published to ECR"
 }
 
