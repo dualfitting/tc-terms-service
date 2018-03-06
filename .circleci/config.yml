@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/topcoder-platform/tc-terms-service
     docker:
-    - image: docker
+    - image: jamesdbloom/docker-java8-maven
     steps:
     - checkout    
     - restore_cache:
