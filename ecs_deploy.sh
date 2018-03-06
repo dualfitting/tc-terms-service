@@ -34,7 +34,7 @@ cp $WORKSPACE/target/terms-microservice*.jar terms-microservice.jar
 cp $WORKSPACE/src/main/resources/terms-service.yaml terms-service.yaml
 
 #Copying ECS task template with place holder values 
-cp $WORKSPACE/.deploy/ecs_task_template.json ecs_task_template.json
+cp $WORKSPACE/ecs_task_template.json ecs_task_template.json
 
 echo "Logging into docker"
 echo "############################"
