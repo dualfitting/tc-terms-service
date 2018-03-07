@@ -3,9 +3,9 @@ jobs:
   build:
     docker:
     - image: appiriodevops/ap-microservice-base:0.0.1
-        auth:
-            username: $DOCKER_USER  # can specify string literal values
-            password: $DOCKER_PASSWD  # or project environment variable reference
+      auth:
+        username: $DOCKER_USER  # can specify string literal values
+        password: $DOCKER_PASSWD  # or project environment variable reference
     steps:
     - checkout    
     # This is based on your 1.0 configuration file or project settings
