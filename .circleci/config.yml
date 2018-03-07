@@ -2,6 +2,7 @@ version: 2
 jobs:
   build:
     docker:
+    - image: circleci/openjdk:8-jdk    
     - image: appiriodevops/ap-microservice-base:0.0.1
       auth:
         username: $DOCKER_USER  # can specify string literal values
