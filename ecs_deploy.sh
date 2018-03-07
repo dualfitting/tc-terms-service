@@ -27,18 +27,18 @@ JQ="jq --raw-output --exit-status"
 DEPLOY_DIR="$( cd "$( dirname "$0" )" && pwd )"
 WORKSPACE=$PWD
 
-cd $DEPLOY_DIR/docker
+#cd $DEPLOY_DIR/docker
 
 echo "Copying deployment files to docker folder"
 cp $WORKSPACE/target/terms-microservice*.jar terms-microservice.jar
 cp $WORKSPACE/src/main/resources/terms-service.yaml terms-service.yaml
 
 #Copying ECS task template with place holder values 
-cp $WORKSPACE/.deploy/ecs_task_template.json ecs_task_template.json
+cp $WORKSPACE/ecs_task_template.json ecs_task_template.json
 
 echo "Logging into docker"
 echo "############################"
-docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASSWD
+docker login -u $DOCKER_USER --password-stdin $DOCKER_PASSWD
 
 configure_aws_cli() {
   echo "Configuring AWS CLI."
@@ -51,7 +51,8 @@ configure_aws_cli() {
 }
 
 build_ecr_image() {
-  echo "Building docker image..."
+  echo "Building docker image ..."
+  docker login -e $DOCKER_EMAIL -u $DOCKER_USER --password-stdin $DOCKER_PASSWD
   eval $(aws ecr get-login  --region $AWS_REGION)
   TAG=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$AWS_REPOSITORY:$CIRCLE_SHA1
   docker build -t $TAG .
@@ -62,7 +63,8 @@ build_ecr_image() {
 
 push_ecr_image() {
   echo "Pushing docker image to ECR..."
-  eval $(aws ecr get-login --region $AWS_REGION --no-include-email)
+  docker login -u $DOCKER_USER --password-stdin $DOCKER_PASSWD
+  eval $(aws ecr get-login --region $AWS_REGION)
   echo $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$AWS_REPOSITORY:$TAG
   docker push $TAG
   echo "Docker image published to ECR"
