@@ -1,7 +1,7 @@
 #!/bin/bash
 ENV=$1
 if [[ -z "$ENV" ]] ; then
-  echo "Environment should be set on startup with one of the below values"
+  echo "Environment should be set on startup  with one of the below values"
   echo "ENV must be one of - DEV, QA, PROD or LOCAL"
   exit
 fi
