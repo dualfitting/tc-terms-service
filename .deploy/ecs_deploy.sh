@@ -79,7 +79,7 @@ make_task_def(){
 }
 
 register_definition() {
-    echo "Registering  ECS task definition... "
+    echo "Registering  ECS task definition...   "
     echo aws ecs register-task-definition --cli-input-json file://task_def.json --family $family
     if revision=$(aws ecs register-task-definition  --cli-input-json file://task_def.json --family $family | $JQ '.taskDefinition.taskDefinitionArn'); then
         echo "Revision: $revision"
