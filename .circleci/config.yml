@@ -3,7 +3,6 @@ jobs:
   build:
     docker:
     - image: circleci/openjdk:8-jdk    
-    - image: appiriodevops/ap-microservice-base:0.0.1
     steps:
     - checkout    
     # This is based on your 1.0 configuration file or project settings
