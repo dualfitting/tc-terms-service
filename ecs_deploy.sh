@@ -51,7 +51,7 @@ configure_aws_cli() {
 }
 
 build_ecr_image() {
-  echo "Building docker image ..."
+  echo "Building docker image ... "
   docker login  -u $DOCKER_USER --password-stdin $DOCKER_PASSWD
   eval $(aws ecr get-login  --region $AWS_REGION)
   TAG=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$AWS_REPOSITORY:$CIRCLE_SHA1
@@ -62,7 +62,7 @@ build_ecr_image() {
 }
 
 push_ecr_image() {
-  echo "Pushing docker image to ECR..."
+  echo "Pushing docker image to ECR... "
   docker login -u $DOCKER_USER --password-stdin $DOCKER_PASSWD
   eval $(aws ecr get-login --region $AWS_REGION)
   echo $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$AWS_REPOSITORY:$TAG
