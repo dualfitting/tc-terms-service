@@ -1,2 +1,4 @@
-GET terms\/.*\/
-POST terms\/.*\/
+GET terms\/detail\/.*
+POST terms\/.*\/agree
+POST terms\/docusign/viewURL
+POST terms\/docusignCallback

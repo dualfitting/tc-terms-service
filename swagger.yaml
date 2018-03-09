@@ -52,8 +52,7 @@ paths:
               text:
                 type: string
               docusignTemplateId:
-                type: number
-                format: long
+                type: string
               agreeabilityType:
                 type: string
               agreed:

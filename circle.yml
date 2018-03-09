@@ -4,7 +4,9 @@ machine:
 
 dependencies:
   pre:
-    - pip install awsebcli
+    - sudo apt install jq     
+    - pip install --upgrade pip
+    - pip install awscli 
 
 test:
   override:
@@ -13,11 +15,12 @@ test:
 deployment:
   development:
     branch: ["dev"]
-    commands:
-      - .deploy/dockerhub_push.sh DEV $CIRCLE_BUILD_NUM
-      - .deploy/ebs_deploy.sh ap-terms DEV $CIRCLE_BUILD_NUM
+    commands:      
+      - .deploy/ecs_deploy.sh DEV
   production:
     branch: master
     commands:
-      - .deploy/dockerhub_push.sh PROD $CIRCLE_BUILD_NUM
-      - .deploy/ebs_deploy.sh ap-terms PROD $CIRCLE_BUILD_NUM
+      - .deploy/ecs_deploy.sh PROD
+
+
+
