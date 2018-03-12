@@ -19,6 +19,9 @@ AWS_ECS_SERVICE=$(eval "echo \$${ENV}_AWS_ECS_SERVICE")
 family=$(eval "echo \$${ENV}_AWS_ECS_TASK_FAMILY")
 AWS_ECS_CONTAINER_NAME=$(eval "echo \$${ENV}_AWS_ECS_CONTAINER_NAME")
 AUTH_DOMAIN=$(eval "echo \$${ENV}_AUTH_DOMAIN")
+OLTP_PW=$(eval "echo \$${ENV}_OLTP_PW") 
+OLTP_URL=$(eval "echo \$${ENV}_OLTP_URL") 
+OLTP_USER=$(eval "echo \$${ENV}_OLTP_USER")
 #APP_NAME
 
 JQ="jq --raw-output --exit-status"
