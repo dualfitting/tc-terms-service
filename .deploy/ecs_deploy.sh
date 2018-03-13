@@ -22,6 +22,7 @@ AUTH_DOMAIN=$(eval "echo \$${ENV}_AUTH_DOMAIN")
 OLTP_PW=$(eval "echo \$${ENV}_OLTP_PW") 
 OLTP_URL=$(eval "echo \$${ENV}_OLTP_URL") 
 OLTP_USER=$(eval "echo \$${ENV}_OLTP_USER")
+DOCUSIGN_RETURN_URL=$(eval "echo \$${ENV}_DOCUSIGN_RETURN_URL")
 #APP_NAME
 
 JQ="jq --raw-output --exit-status"
