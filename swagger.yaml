@@ -18,7 +18,7 @@ securityDefinitions:
     name: Authorization
     in: header
 paths:
-  /terms/detail/{termsOfUseId}:
+  /terms/{termsOfUseId}:
     get:
       operationId: getTermsOfUse
       security:
@@ -107,7 +107,7 @@ paths:
           description: Errors occur in the server side
           schema:
             $ref: '#/definitions/ErrorModel'
-  /terms/docusign/viewURL:
+  /terms/docusignViewURL:
     post:
       operationId: getDocusignViewURL
       security:

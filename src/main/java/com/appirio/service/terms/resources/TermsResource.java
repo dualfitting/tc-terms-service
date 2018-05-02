@@ -78,7 +78,7 @@ public class TermsResource {
      * @return the ApiResponse result
      */
     @GET
-    @Path("/detail/{termsOfUseId}")
+    @Path("/{termsOfUseId}")
     @Timed
     @AllowAnonymous
     public ApiResponse getTermsOfUse(@Valid @PathParam("termsOfUseId") long termsOfUseId, @QueryParam("noAuth") boolean noAuth, @Context SecurityContext securityContext) {
@@ -122,7 +122,7 @@ public class TermsResource {
      * @return the ApiResponse result
      */
     @POST
-    @Path("/docusign/viewURL")
+    @Path("/docusignViewURL")
     @Timed
     public ApiResponse getDocusignViewURL(@Auth AuthUser authUser, @Valid PostPutRequest<DocusignViewUrlParam> request) {
         try {
